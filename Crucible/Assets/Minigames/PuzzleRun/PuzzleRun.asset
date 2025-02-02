@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e15ce27a3b28b498c2dcfffd025305, type: 3}
+  m_Name: PuzzleRun
+  m_EditorClassIdentifier: 
+  Name: Puzzle-run
+  Description: Help or trick each other in this collaborative running game - step
+    on buttons to control what happens on your partner's side, while avoiding obstacles
+    to keep yourself running!
+  Year: 2021
+  Semester: 0
+  Thumbnail: {fileID: 21300000, guid: 41273148bf2ca49ec9fab842bc1a39f0, type: 3}
+  CreatorNames: Clara Ye, Ziqi Yang, Allison Wivagg
+  P1_Objective: Avoid obstacles and help your teammate
+  P2_Objective: Avoid obstacles and help your teammate
+  P1_JoystickDescription: None
+  P1_Button1Description: Move left
+  P1_Button2Description: Move right
+  P2_JoystickDescription: None
+  P2_Button1Description: Move left
+  P2_Button2Description: Move right
+  GameScene:
+    sceneAsset: {fileID: 102900000, guid: 46be1230996ad5d459225dfa984fb7c9, type: 3}
+    scenePath: Assets/Minigames/PuzzleRun/PuzzleRun.unity
+  SupportedGameModes: 2
+  ExcludeFromGameList: 0
