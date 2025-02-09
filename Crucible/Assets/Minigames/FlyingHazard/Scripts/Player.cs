@@ -21,7 +21,10 @@ namespace Minigames.FlyingHazard.Scripts
             // To add a force (e.g. when jumping:)
             // Rigidbody rb = ...;
             // rb.AddForce(Vector2.up * 10f, ForceMode.Impulse);
-            Debug.Log("Player Collided with " + collider.name);
+            
+            // Collisions note:
+            // Need a rigidbody on one of the elements for the collision to work
+            Debug.Log(name + " collided with " + collider.name);
         }
     }
 }
