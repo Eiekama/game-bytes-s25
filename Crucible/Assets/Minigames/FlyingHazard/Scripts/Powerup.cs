@@ -7,12 +7,11 @@ namespace Minigames.FlyingHazard.Scripts
         
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.CompareTag("Player"))
-            {
-                // TODO: do stuff
-                Debug.Log("Powerup triggered");
-                Destroy(gameObject);
-            }
+            if (!collider.CompareTag("Player")) return;
+            
+            // TODO: do stuff
+            Debug.Log("Powerup triggered");
+            Destroy(gameObject);
         }
     }
 }
