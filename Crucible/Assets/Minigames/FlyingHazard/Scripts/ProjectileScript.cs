@@ -15,6 +15,6 @@ public class ProjectileScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Translate(velocity*thing*Time.deltaTime);
     }
 }

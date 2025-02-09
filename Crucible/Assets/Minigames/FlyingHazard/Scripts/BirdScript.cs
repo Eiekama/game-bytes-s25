@@ -11,6 +11,10 @@ public class BirdScript : MonoBehaviour
 
     [SerializeField] private float moveSpeed;
 
+    [SerializeField] private float jumpStrength;
+
+    [SerializeField] private float gravityStrength;
+
     void Start()
     {
             
@@ -31,16 +35,16 @@ public class BirdScript : MonoBehaviour
             transform.Translate(Vector2.right *Time.deltaTime *moveSpeed);
         }
 
-        if (GetComponent<Rigidbody2D>().velocity.y > -6.0)
-            GetComponent<Rigidbody2D>().AddForce(Vector2.down*0.02f,ForceMode2D.Impulse);
+        if (GetComponent<Rigidbody2D>().velocity.y > gravityStrength*-6.0f)
+            GetComponent<Rigidbody2D>().AddForce(Vector2.down*gravityStrength/50.0f,ForceMode2D.Impulse);
 
     }
 
     void flappy(){
         Rigidbody2D something = GetComponent<Rigidbody2D>();
-        if (something.velocity.y < 4.0){
+        if (something.velocity.y < jumpStrength+jumpStrength*1.33){
             something.velocity = new Vector2(something.velocity.x, 0.0f);
-            something.AddForce(Vector2.up*3.0f,ForceMode2D.Impulse);
+            something.AddForce(Vector2.up*jumpStrength,ForceMode2D.Impulse);
         }
     }
 }
