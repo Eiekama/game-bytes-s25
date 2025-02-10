@@ -32,10 +32,12 @@ public class BirdScript : MonoBehaviour
         }
 
         if(Input.GetKey(left)){
+            GetComponent<SpriteRenderer>().flipX = true;
             transform.Translate(Vector2.left *Time.deltaTime *moveSpeed);
         }
 
         if(Input.GetKey(right)){
+            GetComponent<SpriteRenderer>().flipX = false;
             transform.Translate(Vector2.right *Time.deltaTime *moveSpeed);
         }
 
