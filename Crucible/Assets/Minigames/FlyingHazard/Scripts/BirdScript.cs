@@ -23,6 +23,8 @@ public class BirdScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Rigidbody2D something = GetComponent<Rigidbody2D>();
+
         if(Input.GetKeyDown(flap)){
             flappy();
         }
@@ -35,9 +37,14 @@ public class BirdScript : MonoBehaviour
             transform.Translate(Vector2.right *Time.deltaTime *moveSpeed);
         }
 
-        if (GetComponent<Rigidbody2D>().velocity.y > gravityStrength*-6.0f)
-            GetComponent<Rigidbody2D>().AddForce(Vector2.down*gravityStrength/50.0f,ForceMode2D.Impulse);
+        if(something.velocity.y > gravityStrength*-6.0f)
+            something.AddForce(Vector2.down*gravityStrength/50.0f,ForceMode2D.Impulse);
 
+        if(something.position.x > 9 || something.position.x < -9)
+            transform.Translate((Vector2.right*-1)*(float)something.position.x*1.95f);
+
+        if(something.position.y > 5 || something.position.y < -5)
+            transform.Translate((Vector2.up*-1)*(float)something.position.y*1.95f);            
     }
 
     void flappy(){
