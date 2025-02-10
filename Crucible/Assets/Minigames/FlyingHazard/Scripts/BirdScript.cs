@@ -15,6 +15,8 @@ public class BirdScript : MonoBehaviour
 
     [SerializeField] private float gravityStrength;
 
+    [SerializeField] Animator birdAnim;
+
     void Start()
     {
             
@@ -48,6 +50,7 @@ public class BirdScript : MonoBehaviour
     }
 
     void flappy(){
+        birdAnim.SetTrigger("Flap");
         Rigidbody2D something = GetComponent<Rigidbody2D>();
         if (something.velocity.y < jumpStrength+jumpStrength*1.33){
             something.velocity = new Vector2(something.velocity.x, 0.0f);
