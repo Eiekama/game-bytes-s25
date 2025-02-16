@@ -716,7 +716,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.015, y: -0.02}
@@ -762,7 +762,7 @@ MonoBehaviour:
   right: 275
   moveSpeed: 6
   jumpStrength: 9
-  gravityStrength: 1
+  gravityMax: 0
   birdAnim: {fileID: 392573857}
 --- !u!95 &1081405884
 Animator:
@@ -899,7 +899,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.015, y: -0.02}
@@ -921,7 +921,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -945,7 +945,7 @@ MonoBehaviour:
   right: 100
   moveSpeed: 6
   jumpStrength: 20
-  gravityStrength: 1
+  gravityMax: 3
   birdAnim: {fileID: 392573857}
 --- !u!212 &1179703082
 SpriteRenderer:
@@ -1448,6 +1448,11 @@ PrefabInstance:
       propertyPath: gravityStrength
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3581989506789138618, guid: 080d853bca669b4419e7cd57e34a7bb9,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138620, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
       propertyPath: m_Name
@@ -1519,6 +1524,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
+      propertyPath: gravityMax
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
+        type: 3}
       propertyPath: jumpStrength
       value: 20
       objectReference: {fileID: 0}
@@ -1531,6 +1541,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581989506789138617, guid: 080d853bca669b4419e7cd57e34a7bb9,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581989506789138618, guid: 080d853bca669b4419e7cd57e34a7bb9,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138620, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}

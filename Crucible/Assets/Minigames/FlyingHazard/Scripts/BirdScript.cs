@@ -13,15 +13,18 @@ public class BirdScript : MonoBehaviour
 
     [SerializeField] private float jumpStrength;
 
-    [SerializeField] private float gravityStrength;
+    [SerializeField] private float gravityMax;
 
     [SerializeField] Animator birdAnim;
     
     Rigidbody2D rb;
 
+    float gravStorage;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gravStorage = rb.gravityScale;
     }
 
     // Update is called once per frame
@@ -45,8 +48,14 @@ public class BirdScript : MonoBehaviour
     private void FixedUpdate()
     {
         // Might just be easier to use the rigidbody for gravity instead of manually adding forces for it
-        if(rb.velocity.y > gravityStrength*-6.0f)
-            rb.AddForce(Vector2.down*gravityStrength,ForceMode2D.Impulse);
+        //if(rb.velocity.y > gravityStrength*-6.0f)
+           // rb.AddForce(Vector2.down*gravityStrength,ForceMode2D.Impulse);
+
+        if(rb.velocity.y < gravityMax*-6.0f)
+            rb.gravityScale = 0.0f;
+
+        if (rb.velocity.y > 6.0f)
+            rb.gravityScale = gravStorage;
 
         if(rb.position.x > 9 || rb.position.x < -9)
             transform.Translate((Vector2.right*-1)*(float)rb.position.x*1.95f);
