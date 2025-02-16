@@ -761,8 +761,8 @@ MonoBehaviour:
   left: 276
   right: 275
   moveSpeed: 6
-  jumpStrength: 90
-  gravityStrength: 3
+  jumpStrength: 9
+  gravityStrength: 1
   birdAnim: {fileID: 392573857}
 --- !u!95 &1081405884
 Animator:
@@ -944,8 +944,8 @@ MonoBehaviour:
   left: 97
   right: 100
   moveSpeed: 6
-  jumpStrength: 9
-  gravityStrength: 3
+  jumpStrength: 20
+  gravityStrength: 1
   birdAnim: {fileID: 392573857}
 --- !u!212 &1179703082
 SpriteRenderer:
@@ -1441,12 +1441,12 @@ PrefabInstance:
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
       propertyPath: jumpStrength
-      value: 90
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
       propertyPath: gravityStrength
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138620, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
@@ -1520,12 +1520,12 @@ PrefabInstance:
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
       propertyPath: jumpStrength
-      value: 9
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
       propertyPath: gravityStrength
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138617, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}

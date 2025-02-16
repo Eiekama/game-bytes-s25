@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,17 +16,17 @@ public class BirdScript : MonoBehaviour
     [SerializeField] private float gravityStrength;
 
     [SerializeField] Animator birdAnim;
+    
+    Rigidbody2D rb;
 
     private void Start()
     {
-            
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    private void FixedUpdate()
+    private void Update()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-
         if(Input.GetKeyDown(flap)){
             flappy();
         }
@@ -39,7 +40,11 @@ public class BirdScript : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
             transform.Translate(Vector2.right * (Time.fixedDeltaTime * moveSpeed));
         }
+    }
 
+    private void FixedUpdate()
+    {
+        // Might just be easier to use the rigidbody for gravity instead of manually adding forces for it
         if(rb.velocity.y > gravityStrength*-6.0f)
             rb.AddForce(Vector2.down*gravityStrength,ForceMode2D.Impulse);
 
@@ -52,10 +57,10 @@ public class BirdScript : MonoBehaviour
 
     private void flappy(){
         birdAnim.SetTrigger("Flap");
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb.velocity.y < jumpStrength+jumpStrength*1.33){
             rb.velocity = new Vector2(rb.velocity.x, 0.0f);
             rb.AddForce(Vector2.up*jumpStrength,ForceMode2D.Impulse);
         }
+        // rb.velocity.Set(rb.velocity.x, jumpStrength); // <Same?
     }
 }
