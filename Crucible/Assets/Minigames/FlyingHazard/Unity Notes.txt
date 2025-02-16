@@ -5,7 +5,7 @@
    Edit->Project Settings->Input Manager to see the axis names
 
    To add a force (e.g. when jumping:)
-   Rigidbody rb = ...;
+   Rigidbody rb = GetComponent<Rigidbody2D>();
    rb.AddForce(Vector2.up * 10f, ForceMode.Impulse);
 
    Collisions note:

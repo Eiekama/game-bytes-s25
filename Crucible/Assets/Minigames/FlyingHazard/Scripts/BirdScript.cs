@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BirdScript : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] private KeyCode flap;
     [SerializeField] private KeyCode left;
     [SerializeField] private KeyCode right;
@@ -16,47 +16,51 @@ public class BirdScript : MonoBehaviour
     [SerializeField] private float gravityStrength;
 
     [SerializeField] Animator birdAnim;
+    
+    Rigidbody2D rb;
 
-    void Start()
+    private void Start()
     {
-            
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Rigidbody2D something = GetComponent<Rigidbody2D>();
-
         if(Input.GetKeyDown(flap)){
             flappy();
         }
 
         if(Input.GetKey(left)){
             GetComponent<SpriteRenderer>().flipX = true;
-            transform.Translate(Vector2.left *Time.deltaTime *moveSpeed);
+            transform.Translate(Vector2.left * (Time.fixedDeltaTime * moveSpeed));
         }
 
         if(Input.GetKey(right)){
             GetComponent<SpriteRenderer>().flipX = false;
-            transform.Translate(Vector2.right *Time.deltaTime *moveSpeed);
+            transform.Translate(Vector2.right * (Time.fixedDeltaTime * moveSpeed));
         }
-
-        if(something.velocity.y > gravityStrength*-6.0f)
-            something.AddForce(Vector2.down*gravityStrength/50.0f,ForceMode2D.Impulse);
-
-        if(something.position.x > 9 || something.position.x < -9)
-            transform.Translate((Vector2.right*-1)*(float)something.position.x*1.95f);
-
-        if(something.position.y > 5 || something.position.y < -5)
-            transform.Translate((Vector2.up*-1)*(float)something.position.y*1.95f);            
     }
 
-    void flappy(){
+    private void FixedUpdate()
+    {
+        // Might just be easier to use the rigidbody for gravity instead of manually adding forces for it
+        if(rb.velocity.y > gravityStrength*-6.0f)
+            rb.AddForce(Vector2.down*gravityStrength,ForceMode2D.Impulse);
+
+        if(rb.position.x > 9 || rb.position.x < -9)
+            transform.Translate((Vector2.right*-1)*(float)rb.position.x*1.95f);
+
+        if(rb.position.y > 5 || rb.position.y < -5)
+            transform.Translate((Vector2.up*-1)*(float)rb.position.y*1.95f);            
+    }
+
+    private void flappy(){
         birdAnim.SetTrigger("Flap");
-        Rigidbody2D something = GetComponent<Rigidbody2D>();
-        if (something.velocity.y < jumpStrength+jumpStrength*1.33){
-            something.velocity = new Vector2(something.velocity.x, 0.0f);
-            something.AddForce(Vector2.up*jumpStrength,ForceMode2D.Impulse);
+        if (rb.velocity.y < jumpStrength+jumpStrength*1.33){
+            rb.velocity = new Vector2(rb.velocity.x, 0.0f);
+            rb.AddForce(Vector2.up*jumpStrength,ForceMode2D.Impulse);
         }
+        // rb.velocity.Set(rb.velocity.x, jumpStrength); // <Same?
     }
 }
