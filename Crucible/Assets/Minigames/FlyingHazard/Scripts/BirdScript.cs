@@ -15,7 +15,7 @@ public class BirdScript : MonoBehaviour
 
     [SerializeField] private float gravityMax;
 
-    [SerializeField] Animator birdAnim;
+    Animator birdAnim;
     
     Rigidbody2D rb;
 
@@ -25,6 +25,7 @@ public class BirdScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         gravStorage = rb.gravityScale;
+        birdAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
