@@ -35,14 +35,16 @@ public class BirdScript : MonoBehaviour
             flappy();
         }
 
-        if(Input.GetKey(left)){
+        if(Input.GetKeyDown(left)){
             GetComponent<SpriteRenderer>().flipX = true;
-            transform.Translate(Vector2.left * (Time.fixedDeltaTime * moveSpeed));
+            //transform.Translate(Vector2.left * (Time.fixedDeltaTime * moveSpeed));
+            rb.velocity = new Vector2(moveSpeed*-2.0f, rb.velocity.y);
         }
 
-        if(Input.GetKey(right)){
+        if(Input.GetKeyDown(right)){
             GetComponent<SpriteRenderer>().flipX = false;
-            transform.Translate(Vector2.right * (Time.fixedDeltaTime * moveSpeed));
+            //transform.Translate(Vector2.right * (Time.fixedDeltaTime * moveSpeed));
+            rb.velocity = new Vector2(moveSpeed*2.0f, rb.velocity.y);
         }
     }
 
