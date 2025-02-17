@@ -1201,6 +1201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1832407e527ba42bd8e7c3045357f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dead: 0
   flap: 273
   left: 276
   right: 275
@@ -1431,11 +1432,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1832407e527ba42bd8e7c3045357f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dead: 0
   flap: 119
   left: 97
   right: 100
   moveSpeed: 3
-  jumpStrength: 10
+  jumpStrength: 15
   gravityMax: 3
 --- !u!212 &1179703082
 SpriteRenderer:
@@ -1514,7 +1516,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1179703078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3211f8679a4445aaccc0d39d4d5c52b, type: 3}
+  m_Script: {fileID: 11500000, guid: 918eed0917e60754987ff6ba177f4301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentPowerup: 7
@@ -2043,6 +2045,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
+      propertyPath: dead
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
+        type: 3}
       propertyPath: flap
       value: 273
       objectReference: {fileID: 0}
@@ -2162,6 +2169,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
+      propertyPath: dead
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
+        type: 3}
       propertyPath: moveSpeed
       value: 3
       objectReference: {fileID: 0}
@@ -2173,7 +2185,7 @@ PrefabInstance:
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
       propertyPath: jumpStrength
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
