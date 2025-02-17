@@ -1204,8 +1204,8 @@ MonoBehaviour:
   flap: 273
   left: 276
   right: 275
-  moveSpeed: 6
-  jumpStrength: 9
+  moveSpeed: 3
+  jumpStrength: 6
   gravityMax: 2
 --- !u!95 &1081405884
 Animator:
@@ -2063,13 +2063,18 @@ PrefabInstance:
       objectReference: {fileID: 392573857}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
+      propertyPath: moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
+        type: 3}
       propertyPath: gravityMax
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
       propertyPath: jumpStrength
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}

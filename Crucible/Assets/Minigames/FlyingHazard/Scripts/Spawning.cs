@@ -32,14 +32,14 @@ public class Spawning : MonoBehaviour
     private IEnumerator spawn1(float interval, GameObject enemy){
         GameObject clone;
         yield return new WaitForSeconds(interval);
-        clone = Instantiate(enemy, new Vector3(Random.Range(-13f, 13f), -5f, 0f), Quaternion.identity);
+        clone = Instantiate(enemy, new Vector3(Random.Range(-9f, 9f), -5f, 0f), Quaternion.identity);
         clone.AddComponent<Destroyer>();
         StartCoroutine(spawn1(interval + Random.Range(-0.5f, 0.5f), enemy));
     }
 
     private IEnumerator spawn2(float interval, GameObject enemy){
         yield return new WaitForSeconds(interval);
-        GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-13f, 13f), 5f, 0f), Quaternion.identity);
+        GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9f, 9f), 5f, 0f), Quaternion.identity);
         clone.AddComponent<Destroyer>();
         StartCoroutine(spawn2(interval + Random.Range(-0.5f, 0.5f), enemy));
 

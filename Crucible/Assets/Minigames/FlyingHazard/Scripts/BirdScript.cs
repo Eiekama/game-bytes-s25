@@ -55,7 +55,7 @@ public class BirdScript : MonoBehaviour
         if(rb.velocity.y < gravityMax*-6.0f)
             rb.gravityScale = 0.0f;
 
-        if (rb.velocity.y > 6.0f)
+        if (rb.velocity.y >= 6.0f)
             rb.gravityScale = gravStorage;
 
         if(rb.position.x > 9 || rb.position.x < -9)
