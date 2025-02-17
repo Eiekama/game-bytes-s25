@@ -53,8 +53,12 @@ public class BirdScript : MonoBehaviour
             }
         } else {
             birdAnim.SetTrigger("Death");
-            if (rb.velocity.x != 0.0f)
-                rb.velocity = new Vector2(0.0f, rb.velocity.y);
+            rb.gravityScale = 0.0f;
+            if (rb.velocity.x != 0.0f){
+                rb.velocity = new Vector2(0.0f, 0.0f);
+                Destroy(GetComponent<CircleCollider2D>());
+                StartCoroutine(deathPause());
+            }
         }
     }
 
@@ -63,14 +67,14 @@ public class BirdScript : MonoBehaviour
         // Might just be easier to use the rigidbody for gravity instead of manually adding forces for it
         //if(rb.velocity.y > gravityStrength*-6.0f)
            // rb.AddForce(Vector2.down*gravityStrength,ForceMode2D.Impulse);
-
-        if(rb.velocity.y < gravityMax*-6.0f)
-            rb.gravityScale = 0.0f;
-
-        if (rb.velocity.y >= 6.0f)
-            rb.gravityScale = gravStorage;
-            
         if (!dead){
+            if(rb.velocity.y < gravityMax*-6.0f)
+                rb.gravityScale = 0.0f;
+
+            if (rb.velocity.y >= 6.0f)
+                rb.gravityScale = gravStorage;
+            
+        
             if(rb.position.x > 9 || rb.position.x < -9)
                 transform.Translate((Vector2.right*-1)*(float)rb.position.x*1.95f);
 
@@ -86,5 +90,10 @@ public class BirdScript : MonoBehaviour
             rb.AddForce(Vector2.up*jumpStrength,ForceMode2D.Impulse);
         }
         // rb.velocity.Set(rb.velocity.x, jumpStrength); // <Same?
+    }
+
+    private IEnumerator deathPause(){
+        yield return new WaitForSeconds(1);
+        rb.velocity = new Vector2(0.0f, -10.0f);
     }
 }
