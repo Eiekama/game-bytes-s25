@@ -26,6 +26,9 @@ public class BirdScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         gravStorage = rb.gravityScale;
         birdAnim = GetComponent<Animator>();
+        //When the actual game is made this will cause the bird to start moving automatically.
+        //I'm not currently running it as it's annoying for testing collisions.
+        //rb.velocity = new Vector2(moveSpeed*2.0f, rb.velocity.y);
     }
 
     // Update is called once per frame
