@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BirdScript : MonoBehaviour
 {
+    public bool dead;
     [SerializeField] private KeyCode flap;
     [SerializeField] private KeyCode left;
     [SerializeField] private KeyCode right;
@@ -34,20 +35,26 @@ public class BirdScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(Input.GetKeyDown(flap)){
-            flappy();
-        }
+        if(!dead){
+            if(Input.GetKeyDown(flap)){
+                flappy();
+            }
 
-        if(Input.GetKeyDown(left)){
-            GetComponent<SpriteRenderer>().flipX = true;
-            //transform.Translate(Vector2.left * (Time.fixedDeltaTime * moveSpeed));
-            rb.velocity = new Vector2(moveSpeed*-2.0f, rb.velocity.y);
-        }
+            if(Input.GetKeyDown(left)){
+                GetComponent<SpriteRenderer>().flipX = true;
+                //transform.Translate(Vector2.left * (Time.fixedDeltaTime * moveSpeed));
+                rb.velocity = new Vector2(moveSpeed*-2.0f, rb.velocity.y);
+            }
 
-        if(Input.GetKeyDown(right)){
-            GetComponent<SpriteRenderer>().flipX = false;
-            //transform.Translate(Vector2.right * (Time.fixedDeltaTime * moveSpeed));
-            rb.velocity = new Vector2(moveSpeed*2.0f, rb.velocity.y);
+            if(Input.GetKeyDown(right)){
+                GetComponent<SpriteRenderer>().flipX = false;
+                //transform.Translate(Vector2.right * (Time.fixedDeltaTime * moveSpeed));
+                rb.velocity = new Vector2(moveSpeed*2.0f, rb.velocity.y);
+            }
+        } else {
+            birdAnim.SetTrigger("Death");
+            if (rb.velocity.x != 0.0f)
+                rb.velocity = new Vector2(0.0f, rb.velocity.y);
         }
     }
 
@@ -62,12 +69,14 @@ public class BirdScript : MonoBehaviour
 
         if (rb.velocity.y >= 6.0f)
             rb.gravityScale = gravStorage;
+            
+        if (!dead){
+            if(rb.position.x > 9 || rb.position.x < -9)
+                transform.Translate((Vector2.right*-1)*(float)rb.position.x*1.95f);
 
-        if(rb.position.x > 9 || rb.position.x < -9)
-            transform.Translate((Vector2.right*-1)*(float)rb.position.x*1.95f);
-
-        if(rb.position.y > 5 || rb.position.y < -5)
-            transform.Translate((Vector2.up*-1)*(float)rb.position.y*1.95f);            
+            if(rb.position.y > 5 || rb.position.y < -5)
+                transform.Translate((Vector2.up*-1)*(float)rb.position.y*1.95f);      
+        }      
     }
 
     private void flappy(){
