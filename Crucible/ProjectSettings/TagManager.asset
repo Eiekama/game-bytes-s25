@@ -6,6 +6,12 @@ TagManager:
   tags:
   - holes
   - Powerup
+  - Collectable
+  - powerUp
+  - fruit
+  - star
+  - wall
+  - Danger
   layers:
   - Default
   - TransparentFX

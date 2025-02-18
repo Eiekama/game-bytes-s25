@@ -6,6 +6,8 @@ using UnityEngine;
 public class BirdScript : MonoBehaviour
 {
     public bool dead;
+
+    public int player;
     [SerializeField] private KeyCode flap;
     [SerializeField] private KeyCode left;
     [SerializeField] private KeyCode right;

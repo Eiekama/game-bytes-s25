@@ -135,9 +135,11 @@ GameObject:
   - component: {fileID: 24042717}
   - component: {fileID: 24042716}
   - component: {fileID: 24042718}
+  - component: {fileID: 24042719}
+  - component: {fileID: 24042720}
   m_Layer: 0
   m_Name: Bread
-  m_TagString: Untagged
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,7 +204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 24042715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: -3, z: 0}
+  m_LocalPosition: {x: -15.99, y: -2.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -227,6 +229,45 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &24042719
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24042715}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.28, y: 0.28}
+    newSize: {x: 0.28, y: 0.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.28, y: 0.28}
+  m_EdgeRadius: 0
+--- !u!114 &24042720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24042715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6abf8c3167a9ad4c8bc1f12e20f0151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type2: 1
 --- !u!1 &159459287
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,7 +705,7 @@ GameObject:
   - component: {fileID: 331868247}
   m_Layer: 0
   m_Name: Drop
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -938,6 +979,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508174076}
   m_CullTransparentMesh: 0
+--- !u!1 &528266768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 528266770}
+  - component: {fileID: 528266769}
+  m_Layer: 0
+  m_Name: Ender
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &528266769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528266768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d7878413893c349a534e496c38f132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bird1: {fileID: 1179703078}
+  bird2: {fileID: 1081405880}
+--- !u!4 &528266770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528266768}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.7509625, y: 0.5174207, z: -335.39813}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &635126285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +1092,7 @@ GameObject:
   - component: {fileID: 818944853}
   m_Layer: 0
   m_Name: Spike Balloon
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1182,7 +1268,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1202,12 +1288,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dead: 0
+  player: 2
   flap: 273
   left: 276
   right: 275
   moveSpeed: 3
-  jumpStrength: 6
-  gravityMax: 2
+  jumpStrength: 15
+  gravityMax: 3
 --- !u!95 &1081405884
 Animator:
   serializedVersion: 3
@@ -1309,6 +1396,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPowerup: 7
+  canDie: 0
+  Score: 0
 --- !u!1 &1137564206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,6 +1428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   on: 1
+  bread: {fileID: 24042715}
   weapon1: {fileID: 818944848}
   weapon2: {fileID: 331868242}
   inter1: 2.5
@@ -1355,7 +1445,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1179703078
 GameObject:
@@ -1433,6 +1523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dead: 0
+  player: 1
   flap: 119
   left: 97
   right: 100
@@ -1516,10 +1607,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1179703078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 918eed0917e60754987ff6ba177f4301, type: 3}
+  m_Script: {fileID: 11500000, guid: d3211f8679a4445aaccc0d39d4d5c52b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentPowerup: 7
+  canDie: 1
+  Score: 0
 --- !u!1 &1289851227
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,6 +2158,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
+      propertyPath: player
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
+        type: 3}
       propertyPath: birdAnim
       value: 
       objectReference: {fileID: 392573857}
@@ -2076,12 +2174,12 @@ PrefabInstance:
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
       propertyPath: gravityMax
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
       propertyPath: jumpStrength
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
@@ -2091,7 +2189,7 @@ PrefabInstance:
     - target: {fileID: 3581989506789138617, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
       propertyPath: m_GravityScale
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138618, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
@@ -2171,6 +2269,11 @@ PrefabInstance:
         type: 3}
       propertyPath: dead
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
+        type: 3}
+      propertyPath: player
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}

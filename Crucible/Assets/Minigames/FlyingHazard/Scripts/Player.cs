@@ -10,11 +10,19 @@ namespace Minigames.FlyingHazard.Scripts
 
         private Camera _mainCamera;
 
+        BirdScript bs;
+
+        [SerializeField] bool canDie;
+
+        public int Score = 0;
+
         private void Start()
         {
             _mainCamera = Camera.main;
+            bs = GetComponent<BirdScript>();
         }
 
+        
         private void OnTriggerEnter2D(Collider2D collider)
         {
             Debug.Log(name + " collided with " + collider.name);
@@ -61,6 +69,26 @@ namespace Minigames.FlyingHazard.Scripts
                 Destroy(powerup);
                 Debug.Log("Powerup " + powerup + " destroyed");
             }
+
+            if (collider.gameObject.CompareTag("Collectable"))
+            {
+                GameObject collect = collider.gameObject;
+                int Collecter = collect.GetComponent<Collects>().type2;
+                switch(Collecter)
+                {
+                    case 1:
+                    Bread(collect);
+                    break;
+                }
+
+                Destroy(collect);
+            }
+
+            if (collider.gameObject.CompareTag("Danger"))
+            {
+                if (canDie)
+                    bs.dead = true;
+            }
         }
         
         void EnergyShield()
@@ -97,5 +125,16 @@ namespace Minigames.FlyingHazard.Scripts
         {
 
         }
+    
+        void Bread(GameObject spawn)
+        {
+            if (GetComponent<BirdScript>().player == 1)
+                MinigameController.Instance.AddScore(1, 1);
+            else if (GetComponent<BirdScript>().player == 2)
+                MinigameController.Instance.AddScore(2, 1);
+            Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
+            Score++;
+        }
+
     }
 }
