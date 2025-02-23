@@ -1,14 +1,23 @@
 using System;
+using System.Collections;
+using System.Numerics;
 using Unity.UNetWeaver;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Minigames.FlyingHazard.Scripts
 {
     public class Player : MonoBehaviour
     {
         [SerializeField] private PowerupType currentPowerup = PowerupType.None;
+        
+        // Can't use final + SerializeField AFAIK, but this s/b effectively final:
+        // Measured in seconds
+        [SerializeField] private int powerupDuration = 10;
 
         private Camera _mainCamera;
+        public float screenRotationTime = 0.25f;
 
         BirdScript bs;
 
@@ -49,11 +58,10 @@ namespace Minigames.FlyingHazard.Scripts
                         LimeBoost();
                         break;
                     case PowerupType.Stopwatch:
-                        Debug.Log("test2");
                         Stopwatch();
                         break;
                     case PowerupType.MushroomFlip:
-                        MushroomFlip();
+                        StartCoroutine(MushroomFlip());
                         break;
                     case PowerupType.SwapWarp:
                         SwapWarp();
@@ -93,7 +101,7 @@ namespace Minigames.FlyingHazard.Scripts
         
         void EnergyShield()
         {
-
+    
         }
 
         void RiceMagnet()
@@ -111,11 +119,35 @@ namespace Minigames.FlyingHazard.Scripts
 
         }
 
-        void MushroomFlip()
+        IEnumerator MushroomFlip(int direction = 1)
         {
-            _mainCamera.transform.Rotate(new Vector3(0, 0, 180));
-        }
+            Vector3 start = new Vector3(0, 0, 0);
+            Vector3 end = new Vector3(0, 0, 180);
 
+            for (float time = 0; time < screenRotationTime; time += Time.deltaTime)
+            {
+                _mainCamera.transform.Rotate(direction * Vector3.Lerp(start, end, Time.deltaTime / screenRotationTime));
+                yield return null;
+            }
+            
+            // Direction == 1 means rotating clockwise; -1 is counterclockwise.
+            // If direction is 1, we rotate it back after powerupDuration seconds. 
+            if (direction == 1)
+            {
+                // Directly set it to <upside down>, in case the anim overshot it.
+                _mainCamera.transform.rotation = new Quaternion(0, 0, 1, 0);
+            
+                yield return new WaitForSeconds(powerupDuration);
+                
+                // Rotates it back the right way
+                StartCoroutine(MushroomFlip(-1));
+            }
+            else
+            {
+                // Directly set it to <upside down>, in case the anim overshot it.
+                _mainCamera.transform.rotation = new Quaternion(0, 0, 0, 1);
+            }
+        }
         void SwapWarp()
         {
 
@@ -124,6 +156,12 @@ namespace Minigames.FlyingHazard.Scripts
         void OneUp()
         {
 
+        }
+
+        private void OnDestroy()
+        {
+            Debug.Log("Destoryed");
+            _mainCamera.transform.rotation = new Quaternion(0, 0, 0, 1);
         }
     
         void Bread(GameObject spawn)
@@ -135,6 +173,5 @@ namespace Minigames.FlyingHazard.Scripts
             Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
             Score++;
         }
-
     }
 }

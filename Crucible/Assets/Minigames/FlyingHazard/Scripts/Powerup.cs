@@ -15,7 +15,7 @@ namespace Minigames.FlyingHazard.Scripts
     }
     public class Powerup : MonoBehaviour
     {
-        [SerializeField] public PowerupType type;
+        public PowerupType type;
         
         private void OnTriggerEnter2D(Collider2D collider)
         {
