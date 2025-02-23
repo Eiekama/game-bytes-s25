@@ -22,6 +22,7 @@ namespace Minigames.FlyingHazard.Scripts
             if (!collider.CompareTag("Player")) return;
             GameObject player = collider.gameObject;
             Debug.Log(type + " triggered by " + player.name);
+            
         }
     }
 }

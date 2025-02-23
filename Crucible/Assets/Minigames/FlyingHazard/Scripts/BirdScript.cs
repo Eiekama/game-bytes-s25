@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class BirdScript : MonoBehaviour
 {
+    public bool dead;
+
+    public int player;
     [SerializeField] private KeyCode flap;
     [SerializeField] private KeyCode left;
     [SerializeField] private KeyCode right;
@@ -13,46 +16,73 @@ public class BirdScript : MonoBehaviour
 
     [SerializeField] private float jumpStrength;
 
-    [SerializeField] private float gravityStrength;
+    [SerializeField] private float gravityMax;
 
-    [SerializeField] Animator birdAnim;
+    Animator birdAnim;
     
     Rigidbody2D rb;
+
+    float gravStorage;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gravStorage = rb.gravityScale;
+        birdAnim = GetComponent<Animator>();
+        //When the actual game is made this will cause the bird to start moving automatically.
+        //I'm not currently running it as it's annoying for testing collisions.
+        //rb.velocity = new Vector2(moveSpeed*2.0f, rb.velocity.y);
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if(Input.GetKeyDown(flap)){
-            flappy();
-        }
+        if(!dead){
+            if(Input.GetKeyDown(flap)){
+                flappy();
+            }
 
-        if(Input.GetKey(left)){
-            GetComponent<SpriteRenderer>().flipX = true;
-            transform.Translate(Vector2.left * (Time.fixedDeltaTime * moveSpeed));
-        }
+            if(Input.GetKeyDown(left)){
+                GetComponent<SpriteRenderer>().flipX = true;
+                //transform.Translate(Vector2.left * (Time.fixedDeltaTime * moveSpeed));
+                rb.velocity = new Vector2(moveSpeed*-2.0f, rb.velocity.y);
+            }
 
-        if(Input.GetKey(right)){
-            GetComponent<SpriteRenderer>().flipX = false;
-            transform.Translate(Vector2.right * (Time.fixedDeltaTime * moveSpeed));
+            if(Input.GetKeyDown(right)){
+                GetComponent<SpriteRenderer>().flipX = false;
+                //transform.Translate(Vector2.right * (Time.fixedDeltaTime * moveSpeed));
+                rb.velocity = new Vector2(moveSpeed*2.0f, rb.velocity.y);
+            }
+        } else {
+            birdAnim.SetTrigger("Death");
+            rb.gravityScale = 0.0f;
+            if (rb.velocity.x != 0.0f){
+                rb.velocity = new Vector2(0.0f, 0.0f);
+                Destroy(GetComponent<CircleCollider2D>());
+                StartCoroutine(deathPause());
+            }
         }
     }
 
     private void FixedUpdate()
     {
         // Might just be easier to use the rigidbody for gravity instead of manually adding forces for it
-        if(rb.velocity.y > gravityStrength*-6.0f)
-            rb.AddForce(Vector2.down*gravityStrength,ForceMode2D.Impulse);
+        //if(rb.velocity.y > gravityStrength*-6.0f)
+           // rb.AddForce(Vector2.down*gravityStrength,ForceMode2D.Impulse);
+        if (!dead){
+            if(rb.velocity.y < gravityMax*-6.0f)
+                rb.gravityScale = 0.0f;
 
-        if(rb.position.x > 9 || rb.position.x < -9)
-            transform.Translate((Vector2.right*-1)*(float)rb.position.x*1.95f);
+            if (rb.velocity.y >= 6.0f)
+                rb.gravityScale = gravStorage;
+            
+        
+            if(rb.position.x > 9 || rb.position.x < -9)
+                transform.Translate((Vector2.right*-1)*(float)rb.position.x*1.95f);
 
-        if(rb.position.y > 5 || rb.position.y < -5)
-            transform.Translate((Vector2.up*-1)*(float)rb.position.y*1.95f);            
+            if(rb.position.y > 5 || rb.position.y < -5)
+                transform.Translate((Vector2.up*-1)*(float)rb.position.y*1.95f);      
+        }      
     }
 
     private void flappy(){
@@ -62,5 +92,10 @@ public class BirdScript : MonoBehaviour
             rb.AddForce(Vector2.up*jumpStrength,ForceMode2D.Impulse);
         }
         // rb.velocity.Set(rb.velocity.x, jumpStrength); // <Same?
+    }
+
+    private IEnumerator deathPause(){
+        yield return new WaitForSeconds(1);
+        rb.velocity = new Vector2(0.0f, -10.0f);
     }
 }

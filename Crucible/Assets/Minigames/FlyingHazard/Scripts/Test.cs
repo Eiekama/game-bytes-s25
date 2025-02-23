@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Minigames.FlyingHazard.Scripts
 {
-    public class Player : MonoBehaviour
+    public class Test : MonoBehaviour
     {
         [SerializeField] private PowerupType currentPowerup = PowerupType.None;
 
@@ -12,17 +12,12 @@ namespace Minigames.FlyingHazard.Scripts
 
         BirdScript bs;
 
-        [SerializeField] bool canDie;
-
-        public int Score = 0;
-
         private void Start()
         {
             _mainCamera = Camera.main;
             bs = GetComponent<BirdScript>();
         }
 
-        
         private void OnTriggerEnter2D(Collider2D collider)
         {
             Debug.Log(name + " collided with " + collider.name);
@@ -40,26 +35,26 @@ namespace Minigames.FlyingHazard.Scripts
                 switch (powerupType)
                 {
                     case PowerupType.EnergyShield:
-                        EnergyShield();
+                        EnergyShield1();
                         break;
                     case PowerupType.RiceMagnet:
-                        RiceMagnet();
+                        RiceMagnet1();
                         break;
                     case PowerupType.LimeBoost:
-                        LimeBoost();
+                        LimeBoost1();
                         break;
                     case PowerupType.Stopwatch:
                         Debug.Log("test2");
-                        Stopwatch();
+                        Stopwatch1();
                         break;
                     case PowerupType.MushroomFlip:
-                        MushroomFlip();
+                        MushroomFlip1();
                         break;
                     case PowerupType.SwapWarp:
-                        SwapWarp();
+                        SwapWarp1();
                         break;
                     case PowerupType.OneUp:
-                        OneUp();
+                        OneUp1();
                         break;
                     case PowerupType.None:
                         Debug.Log("Powerup " + powerup.name + " is of None type (shouldn't be possible.)");
@@ -68,73 +63,44 @@ namespace Minigames.FlyingHazard.Scripts
                 
                 Destroy(powerup);
                 Debug.Log("Powerup " + powerup + " destroyed");
-            }
-
-            if (collider.gameObject.CompareTag("Collectable"))
-            {
-                GameObject collect = collider.gameObject;
-                int Collecter = collect.GetComponent<Collects>().type2;
-                switch(Collecter)
-                {
-                    case 1:
-                    Bread(collect);
-                    break;
-                }
-
-                Destroy(collect);
-            }
-
-            if (collider.gameObject.CompareTag("Danger"))
-            {
-                if (canDie)
-                    bs.dead = true;
+            } else {
+                bs.dead = true;
             }
         }
         
-        void EnergyShield()
+        void EnergyShield1()
         {
 
         }
 
-        void RiceMagnet()
+        void RiceMagnet1()
         {
 
         }
 
-        void LimeBoost()
+        void LimeBoost1()
         {
 
         }
 
-        void Stopwatch()
+        void Stopwatch1()
         {
 
         }
 
-        void MushroomFlip()
+        void MushroomFlip1()
         {
             _mainCamera.transform.Rotate(new Vector3(0, 0, 180));
         }
 
-        void SwapWarp()
+        void SwapWarp1()
         {
 
         }
 
-        void OneUp()
+        void OneUp1()
         {
 
         }
-    
-        void Bread(GameObject spawn)
-        {
-            if (GetComponent<BirdScript>().player == 1)
-                MinigameController.Instance.AddScore(1, 1);
-            else if (GetComponent<BirdScript>().player == 2)
-                MinigameController.Instance.AddScore(2, 1);
-            Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
-            Score++;
-        }
-
     }
 }
