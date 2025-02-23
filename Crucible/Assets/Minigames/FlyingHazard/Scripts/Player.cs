@@ -10,6 +10,8 @@ namespace Minigames.FlyingHazard.Scripts
 {
     public class Player : MonoBehaviour
     {
+        public Player otherBird;
+        
         [SerializeField] private PowerupType currentPowerup = PowerupType.None;
         
         // Can't use final + SerializeField AFAIK, but this s/b effectively final:
@@ -49,7 +51,7 @@ namespace Minigames.FlyingHazard.Scripts
                 switch (powerupType)
                 {
                     case PowerupType.EnergyShield:
-                        EnergyShield();
+                        StartCoroutine(EnergyShield());
                         break;
                     case PowerupType.RiceMagnet:
                         RiceMagnet();
@@ -64,7 +66,7 @@ namespace Minigames.FlyingHazard.Scripts
                         StartCoroutine(MushroomFlip());
                         break;
                     case PowerupType.SwapWarp:
-                        SwapWarp();
+                        StartCoroutine(SwapWarp());
                         break;
                     case PowerupType.OneUp:
                         OneUp();
@@ -99,24 +101,33 @@ namespace Minigames.FlyingHazard.Scripts
             }
         }
         
-        void EnergyShield()
+        IEnumerator EnergyShield()
         {
-    
+            bool couldDie = canDie;
+            canDie = false;
+            
+            yield return new WaitForSeconds(powerupDuration);
+
+            canDie = couldDie;
+            ResetPowerup();
         }
 
         void RiceMagnet()
         {
-
+            
+            ResetPowerup();
         }
 
         void LimeBoost()
         {
 
+            ResetPowerup();
         }
 
         void Stopwatch()
         {
 
+            ResetPowerup();
         }
 
         IEnumerator MushroomFlip(int direction = 1)
@@ -141,6 +152,8 @@ namespace Minigames.FlyingHazard.Scripts
                 
                 // Rotates it back the right way
                 StartCoroutine(MushroomFlip(-1));
+
+                ResetPowerup();
             }
             else
             {
@@ -148,19 +161,50 @@ namespace Minigames.FlyingHazard.Scripts
                 _mainCamera.transform.rotation = new Quaternion(0, 0, 0, 1);
             }
         }
-        void SwapWarp()
+        IEnumerator SwapWarp()
         {
+            currentPowerup = PowerupType.SwapWarp;
+            
+            if (otherBird.bs.dead)
+            {
+                // TODO: Hold onto the powerup until another player spawns, then swap?
+                Debug.Log("No other bird to swap with :(");
+                // Early return if not 2 players in play:
+                yield break;
+            }
 
+            Time.timeScale = 0f;
+            
+            Vector3 pos = transform.position;
+            transform.position = otherBird.transform.position;
+            otherBird.transform.position = pos;
+            
+            // TODO: Do an animation of them swapping positions?
+            
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            Time.timeScale = 1;
+            
+            // Subtract off the time spent doing the animation
+            yield return new WaitForSeconds(powerupDuration - 0.0f);
+            ResetPowerup();
         }
 
         void OneUp()
         {
 
+            ResetPowerup();
         }
 
+        private void ResetPowerup()
+        {
+            currentPowerup = PowerupType.None;
+        }
+
+        // TODO: Check if this is ever called.
         private void OnDestroy()
         {
-            Debug.Log("Destoryed");
+            Debug.Log(name + " Destoryed");
             _mainCamera.transform.rotation = new Quaternion(0, 0, 0, 1);
         }
     
