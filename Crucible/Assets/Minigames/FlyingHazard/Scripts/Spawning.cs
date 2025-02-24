@@ -11,10 +11,10 @@ public class Spawning : MonoBehaviour
 
     public GameObject bird1;
 
-    Minigames.FlyingHazard.Scripts.Test t1;
+    Minigames.FlyingHazard.Scripts.Player t1;
     public GameObject bird2;
 
-    Minigames.FlyingHazard.Scripts.Test t2;
+    Minigames.FlyingHazard.Scripts.Player t2;
     public GameObject bread;
     public GameObject rice;
     public GameObject weapon1;
@@ -22,16 +22,20 @@ public class Spawning : MonoBehaviour
     public float inter1;
     public float inter2;
 
+    public float breadint;
+
     public float powerint;
     public float riceint;
 
-    private bool powers = false;
+    private int powerupCount = 0;
+
+    [SerializeField] private int powerupMax;
     public GameObject[] power;
     // Start is called before the first frame update
     void Start()
     {
-        t1 = bird1.GetComponent<Minigames.FlyingHazard.Scripts.Test>();
-        t2 = bird2.GetComponent<Minigames.FlyingHazard.Scripts.Test>();
+        t1 = bird1.GetComponent<Minigames.FlyingHazard.Scripts.Player>();
+        t2 = bird2.GetComponent<Minigames.FlyingHazard.Scripts.Player>();
         if (on == true){
             Instantiate(bread, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
             StartCoroutine(spawn1(inter1, weapon1));
@@ -43,7 +47,7 @@ public class Spawning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (on == true && t1.getCurrent() == Minigames.FlyingHazard.Scripts.PowerupType.None && t2.getCurrent() == Minigames.FlyingHazard.Scripts.PowerupType.None)
+        if (powerupCount < powerupMax && on == true && t1.getCurrent() == Minigames.FlyingHazard.Scripts.PowerupType.None && t2.getCurrent() == Minigames.FlyingHazard.Scripts.PowerupType.None)
             StartCoroutine(spawn4(powerint, power));
     }
 
@@ -74,8 +78,13 @@ public class Spawning : MonoBehaviour
     }
 
     private IEnumerator spawn4(float interval, GameObject[] enemy){
+        powerupCount++;
         yield return new WaitForSeconds(interval);
         int a = Random.Range(0, enemy.Length);
         GameObject clone = Instantiate(enemy[a], new Vector3(Random.Range(-9f, 9f), Random.Range(-5f, 5f), 0f), Quaternion.identity);
+    }
+
+    public void subtractPowerupCount(){
+        powerupCount--;
     }
 }

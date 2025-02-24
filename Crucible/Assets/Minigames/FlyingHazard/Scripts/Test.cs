@@ -149,7 +149,7 @@ namespace Minigames.FlyingHazard.Scripts
             Score1++;
         }
 
-        public PowerupType getCurrent(){
+        public PowerupType getCurrent1(){
             return currentPowerup;
         }
 

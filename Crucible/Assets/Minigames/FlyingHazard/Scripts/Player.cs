@@ -12,6 +12,8 @@ namespace Minigames.FlyingHazard.Scripts
     {
         public Player otherBird;
         BirdScript bs;
+
+        [SerializeField] private Spawning spawning;
         private Camera _mainCamera;
         
         [SerializeField] private PowerupType currentPowerup = PowerupType.None;
@@ -47,6 +49,7 @@ namespace Minigames.FlyingHazard.Scripts
                 GameObject powerup = collider.gameObject;
                 PowerupType powerupType = powerup.GetComponent<Powerup>().type;
                 currentPowerup = powerupType;
+                spawning.subtractPowerupCount(); //This helps track powerups on field.
                 switch (powerupType)
                 {
                     case PowerupType.EnergyShield:
@@ -86,7 +89,11 @@ namespace Minigames.FlyingHazard.Scripts
                 switch(Collecter)
                 {
                     case 1:
-                    Bread(collect);
+                    StartCoroutine(Bread(spawning.bread));
+                    break;
+
+                    case 2:
+                    Rice();
                     break;
                 }
 
@@ -228,14 +235,27 @@ namespace Minigames.FlyingHazard.Scripts
             _mainCamera.transform.rotation = new Quaternion(0, 0, 0, 1);
         }
     
-        void Bread(GameObject spawn)
+        IEnumerator Bread(GameObject spawn)
+        {
+            if (GetComponent<BirdScript>().player == 1)
+                MinigameController.Instance.AddScore(1, 10);
+            else if (GetComponent<BirdScript>().player == 2)
+                MinigameController.Instance.AddScore(2, 10);
+            Score+=10;
+            yield return new WaitForSeconds(spawning.breadint);
+            Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
+        }
+        void Rice()
         {
             if (GetComponent<BirdScript>().player == 1)
                 MinigameController.Instance.AddScore(1, 1);
             else if (GetComponent<BirdScript>().player == 2)
                 MinigameController.Instance.AddScore(2, 1);
-            Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
             Score++;
+        }
+
+        public PowerupType getCurrent(){ // Using this for powerup spawning detection
+            return currentPowerup;
         }
     }
 }
