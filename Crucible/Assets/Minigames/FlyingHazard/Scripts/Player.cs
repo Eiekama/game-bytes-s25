@@ -11,20 +11,19 @@ namespace Minigames.FlyingHazard.Scripts
     public class Player : MonoBehaviour
     {
         public Player otherBird;
+        BirdScript bs;
+        private Camera _mainCamera;
         
         [SerializeField] private PowerupType currentPowerup = PowerupType.None;
         
-        // Can't use final + SerializeField AFAIK, but this s/b effectively final:
+        // Can't use const + SerializeField AFAIK, but this s/b effectively constant:
         // Measured in seconds
         [SerializeField] private int powerupDuration = 10;
-
-        private Camera _mainCamera;
         public float screenRotationTime = 0.25f;
-
-        BirdScript bs;
-
+        // Seconds the bird is invincible after using a OneUp. 
+        private const float invincibilityTime = 1f;
         [SerializeField] bool canDie;
-
+        
         public int Score = 0;
 
         private void Start()
@@ -60,7 +59,7 @@ namespace Minigames.FlyingHazard.Scripts
                         LimeBoost();
                         break;
                     case PowerupType.Stopwatch:
-                        Stopwatch();
+                        StartCoroutine(Stopwatch());
                         break;
                     case PowerupType.MushroomFlip:
                         StartCoroutine(MushroomFlip());
@@ -96,20 +95,34 @@ namespace Minigames.FlyingHazard.Scripts
 
             if (collider.gameObject.CompareTag("Danger"))
             {
-                if (canDie)
+                if (canDie && currentPowerup != PowerupType.OneUp)
+                {
                     bs.dead = true;
+                }
+
+                if (canDie && currentPowerup == PowerupType.OneUp)
+                {
+                    StartCoroutine(Invincible(invincibilityTime, true));
+                }
             }
         }
         
         IEnumerator EnergyShield()
         {
+            // Waits until Invincible is finished.
+            yield return StartCoroutine(Invincible(powerupDuration, true));
+        }
+
+        IEnumerator Invincible(float time, bool resetPowerupAfter = false)
+        {
             bool couldDie = canDie;
             canDie = false;
             
-            yield return new WaitForSeconds(powerupDuration);
+            yield return new WaitForSeconds(time);
 
             canDie = couldDie;
-            ResetPowerup();
+            if(resetPowerupAfter)
+                ResetPowerup();
         }
 
         void RiceMagnet()
@@ -124,10 +137,17 @@ namespace Minigames.FlyingHazard.Scripts
             ResetPowerup();
         }
 
-        void Stopwatch()
+        IEnumerator Stopwatch()
         {
-
+            // TODO: Make this not have a visible reduction in framerate (i.e. just slow things down manually pbly.)
+            float slowAmt = 0.5f;
+            
+            Time.timeScale = slowAmt;
+            
+            yield return new WaitForSecondsRealtime(powerupDuration);
+            
             ResetPowerup();
+            Time.timeScale = 1;
         }
 
         IEnumerator MushroomFlip(int direction = 1)
@@ -192,8 +212,8 @@ namespace Minigames.FlyingHazard.Scripts
 
         void OneUp()
         {
-
-            ResetPowerup();
+            // Put animations/etc here ig.
+            // All the functionality rn is in other places in this script.
         }
 
         private void ResetPowerup()
