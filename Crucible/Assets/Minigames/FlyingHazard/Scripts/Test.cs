@@ -12,12 +12,17 @@ namespace Minigames.FlyingHazard.Scripts
 
         BirdScript bs;
 
+        [SerializeField] bool canDie;
+
+        public int Score1 = 0;
+
         private void Start()
         {
             _mainCamera = Camera.main;
             bs = GetComponent<BirdScript>();
         }
 
+        
         private void OnTriggerEnter2D(Collider2D collider)
         {
             Debug.Log(name + " collided with " + collider.name);
@@ -63,8 +68,30 @@ namespace Minigames.FlyingHazard.Scripts
                 
                 Destroy(powerup);
                 Debug.Log("Powerup " + powerup + " destroyed");
-            } else {
-                bs.dead = true;
+            }
+
+            if (collider.gameObject.CompareTag("Collectable"))
+            {
+                GameObject collect = collider.gameObject;
+                int Collecter = collect.GetComponent<Collects>().type2;
+                switch(Collecter)
+                {
+                    case 1:
+                    Bread1(collect);
+                    break;
+
+                    case 2:
+                    Rice1();
+                    break;
+                }
+
+                Destroy(collect);
+            }
+
+            if (collider.gameObject.CompareTag("Danger"))
+            {
+                if (canDie)
+                    bs.dead = true;
             }
         }
         
@@ -102,5 +129,29 @@ namespace Minigames.FlyingHazard.Scripts
         {
 
         }
+    
+        void Bread1(GameObject spawn)
+        {
+            if (GetComponent<BirdScript>().player == 1)
+                MinigameController.Instance.AddScore(1, 10);
+            else if (GetComponent<BirdScript>().player == 2)
+                MinigameController.Instance.AddScore(2, 10);
+            Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
+            Score1+=10;
+        }
+
+        void Rice1()
+        {
+            if (GetComponent<BirdScript>().player == 1)
+                MinigameController.Instance.AddScore(1, 1);
+            else if (GetComponent<BirdScript>().player == 2)
+                MinigameController.Instance.AddScore(2, 1);
+            Score1++;
+        }
+
+        public PowerupType getCurrent(){
+            return currentPowerup;
+        }
+
     }
 }

@@ -1,7 +1,31 @@
 fileFormatVersion: 2
 guid: f9a9e9c164a2df641b106004f5bdc64b
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -3491839630117010820
+    second: Rice_0
+  - first:
+      213: 3849808467749604940
+    second: Rice_1
+  - first:
+      213: 2080791224664143242
+    second: Rice_2
+  - first:
+      213: 5733057829911488661
+    second: Rice_3
+  - first:
+      213: -7677782447180633166
+    second: Rice_4
+  - first:
+      213: -4418144277271334785
+    second: Rice_5
+  - first:
+      213: 5633819272060504536
+    second: Rice_6
+  - first:
+      213: 5053862805753939874
+    second: Rice_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -89,7 +113,175 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Rice_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 2
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c728e326b5e7a8fc0800000000000000
+      internalID: -3491839630117010820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rice_1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 3
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4e818d77644d6530800000000000000
+      internalID: 3849808467749604940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rice_2
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 4
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a853bd5289470ec10800000000000000
+      internalID: 2080791224664143242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rice_3
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 3
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59865a4a8b9ef8f40800000000000000
+      internalID: 5733057829911488661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rice_4
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 2
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bba11dfa89037590800000000000000
+      internalID: -7677782447180633166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rice_5
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 3
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7031da20399fa2c0800000000000000
+      internalID: -4418144277271334785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rice_6
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 4
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d98ae757c85f2e40800000000000000
+      internalID: 5633819272060504536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rice_7
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 3
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a7c580027de22640800000000000000
+      internalID: 5053862805753939874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

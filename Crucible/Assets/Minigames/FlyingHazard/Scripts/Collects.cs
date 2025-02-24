@@ -6,6 +6,13 @@ using UnityEngine;
     {
         [SerializeField] public int type2;
 
+        public Collectable thing;
+        public enum Collectable
+        {
+            Bread,
+            Rice,
+        }
+
         
         private void OnTriggerEnter2D(Collider2D collider)
         {
