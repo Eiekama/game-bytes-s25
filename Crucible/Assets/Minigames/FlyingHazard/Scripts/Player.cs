@@ -5,12 +5,15 @@ using Unity.UNetWeaver;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
+using TMPro;
 
 namespace Minigames.FlyingHazard.Scripts
 {
     public class Player : MonoBehaviour
     {
         public Player otherBird;
+
+        public object backupBird;
         BirdScript bs;
 
         [SerializeField] private Spawning spawning;
@@ -23,6 +26,9 @@ namespace Minigames.FlyingHazard.Scripts
         [SerializeField] private int powerupDuration = 10;
         public float screenRotationTime = 0.25f;
         // Seconds the bird is invincible after using a OneUp. 
+
+        [SerializeField] private TMP_Text livesDisplay;
+        private int lives = 3;
         private const float invincibilityTime = 1f;
         [SerializeField] bool canDie;
         
@@ -32,6 +38,7 @@ namespace Minigames.FlyingHazard.Scripts
         {
             _mainCamera = Camera.main;
             bs = GetComponent<BirdScript>();
+            livesDisplay.text = "" + lives;
         }
 
         
@@ -102,14 +109,19 @@ namespace Minigames.FlyingHazard.Scripts
 
             if (collider.gameObject.CompareTag("Danger"))
             {
-                if (canDie && currentPowerup != PowerupType.OneUp)
+                if (canDie){
+                    lives--;
+                    livesDisplay.text = "" + lives;
+                }    
+                //This first canDie check is to make sure lives get updated before the other functions
+                if (canDie && lives == 0)
                 {
+                    bs.getAnim().SetBool("Death", true);
                     bs.dead = true;
-                }
-
-                if (canDie && currentPowerup == PowerupType.OneUp)
-                {
-                    StartCoroutine(Invincible(invincibilityTime, true));
+                } else if (canDie && lives > 0) {
+                    bs.getAnim().SetBool("Death", true);
+                    bs.dead = true;
+                    StartCoroutine(respawnBird());
                 }
             }
         }
@@ -219,6 +231,8 @@ namespace Minigames.FlyingHazard.Scripts
 
         void OneUp()
         {
+            lives++;
+            livesDisplay.text = "" + lives;
             // Put animations/etc here ig.
             // All the functionality rn is in other places in this script.
         }
@@ -256,6 +270,45 @@ namespace Minigames.FlyingHazard.Scripts
 
         public PowerupType getCurrent(){ // Using this for powerup spawning detection
             return currentPowerup;
+        }
+
+        IEnumerator respawnBird(){
+            //A lot of the numbers right now are really arbitrary, gonna add an interval field or something so that it's adjustable
+            canDie = false;
+            yield return new WaitForSeconds(4);
+            //Time to wait for the bird to fall off the screen
+            bs.getAnim().SetBool("Death", false);
+            bs.getAnim().SetTrigger("Respawn");
+            yield return new WaitForSeconds(1);
+            //Time to wait for the bird's animations to finish (This will have to be set or else the bird will respawn face down)
+            if(bs.player == 1){
+                transform.position = new Vector3(-5, 0, 0);
+            } else if (bs.player == 2){
+                transform.position = new Vector3(5, 0, 0);
+            }    
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            gameObject.GetComponent<Rigidbody2D>().velocity = new UnityEngine.Vector2(0.0f, 0.0f);
+            for (int i = 0; i < 5; i++)
+            //I tried to make this a separate method called flickering in spawning, but it didn't work so i
+            //just put the whole for loop in here
+            {
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.black;
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }    
+            canDie = true;
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            gameObject.GetComponent<Rigidbody2D>().velocity = new UnityEngine.Vector2(0.0f, 0.0f);
+            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 4.0f;
+            bs.dead = false;
+            gameObject.GetComponent<CircleCollider2D>().enabled = true;
+            StartCoroutine(Invincible(invincibilityTime, true));
+        }
+
+        public int getLives(){
+            return lives;
         }
     }
 }

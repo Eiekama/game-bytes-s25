@@ -8,12 +8,9 @@ public class Spawning : MonoBehaviour
 {
 
     public bool on;
-
     public GameObject bird1;
-
     Minigames.FlyingHazard.Scripts.Player t1;
     public GameObject bird2;
-
     Minigames.FlyingHazard.Scripts.Player t2;
     public GameObject bread;
     public GameObject rice;
@@ -84,7 +81,20 @@ public class Spawning : MonoBehaviour
         GameObject clone = Instantiate(enemy[a], new Vector3(Random.Range(-9f, 9f), Random.Range(-5f, 5f), 0f), Quaternion.identity);
     }
 
+
     public void subtractPowerupCount(){
         powerupCount--;
+    }
+
+    public IEnumerator flickerSpawn(GameObject thing)
+    //Idk why this doesn't work
+    {
+        SpriteRenderer a = thing.GetComponent<SpriteRenderer>();
+        for (int i = 0; i < 5; i++){
+            yield return new WaitForSeconds(0.2f);
+            a.color = Color.black;
+            yield return new WaitForSeconds(0.2f);
+            a.color = Color.white;
+        }   
     }
 }

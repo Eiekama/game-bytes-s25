@@ -28,7 +28,7 @@ public class GameEnder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (BirdScript1.dead && BirdScript2.dead){
+        if (p1.getLives() == 0 && p2.getLives() == 0){
             if(p1.Score == p2.Score)
             {
                 MinigameController.Instance.FinishGame(LastMinigameFinish.TIE);

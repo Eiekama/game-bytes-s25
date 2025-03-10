@@ -54,11 +54,10 @@ public class BirdScript : MonoBehaviour
                 rb.velocity = new Vector2(moveSpeed*2.0f, rb.velocity.y);
             }
         } else {
-            birdAnim.SetTrigger("Death");
             rb.gravityScale = 0.0f;
             if (rb.velocity.x != 0.0f){
+                gameObject.GetComponent<CircleCollider2D>().enabled = false;
                 rb.velocity = new Vector2(0.0f, 0.0f);
-                Destroy(GetComponent<CircleCollider2D>());
                 StartCoroutine(deathPause());
             }
         }
@@ -97,5 +96,9 @@ public class BirdScript : MonoBehaviour
     private IEnumerator deathPause(){
         yield return new WaitForSeconds(1);
         rb.velocity = new Vector2(0.0f, -10.0f);
+    }
+
+    public Animator getAnim(){
+        return birdAnim;
     }
 }

@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 2562d41815c53674a9d8566ba41e504e
+guid: ff54866dd53665f48b3db76462828c8e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3551287784963028691
-    second: Bird_0
+      213: 4760985835539230506
+    second: BBird_0
   - first:
-      213: -2298939645060189070
-    second: Bird_1
+      213: 756461736741951123
+    second: BBird_1
   - first:
-      213: 1895172606582820919
-    second: Bird_2
+      213: -6133324307764885308
+    second: BBird_2
   - first:
-      213: 5980626864169998078
-    second: Bird_3
+      213: -687590165731105657
+    second: BBird_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -103,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bird_0
+      name: BBird_0
       rect:
         serializedVersion: 2
         x: 1
@@ -117,14 +117,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d29481a339a47bec0800000000000000
-      internalID: -3551287784963028691
+      spriteID: a2f6bf3846b621240800000000000000
+      internalID: 4760985835539230506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bird_1
+      name: BBird_1
       rect:
         serializedVersion: 2
         x: 35
@@ -138,14 +138,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 274ff18b2968810e0800000000000000
-      internalID: -2298939645060189070
+      spriteID: 396dda011fd7f7a00800000000000000
+      internalID: 756461736741951123
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bird_2
+      name: BBird_2
       rect:
         serializedVersion: 2
         x: 69
@@ -159,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7309b63d1710d4a10800000000000000
-      internalID: 1895172606582820919
+      spriteID: 4c8c76fa90e02eaa0800000000000000
+      internalID: -6133324307764885308
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bird_3
+      name: BBird_3
       rect:
         serializedVersion: 2
         x: 103
@@ -180,8 +180,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef6d20d32747ff250800000000000000
-      internalID: 5980626864169998078
+      spriteID: 784ab8423603576f0800000000000000
+      internalID: -687590165731105657
       vertices: []
       indices: 
       edges: []
