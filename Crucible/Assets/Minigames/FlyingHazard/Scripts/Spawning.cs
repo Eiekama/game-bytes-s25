@@ -133,11 +133,11 @@ public class Spawning : MonoBehaviour
                 < Vector3.Distance(bird2.transform.position, clone.transform.position) &&
                 !bs1.dead){ //This if finds which bird is closer and makes sure target is alive
                 aim = (Vector2)(bird1.transform.position - clone.transform.position);
-                a = Vector2.Angle(xdir, aim);
+                a = Vector2.SignedAngle(xdir, aim);
                 clone.transform.rotation = Quaternion.Euler(0.0f, 0.0f, a); //Targetting bird1 with angle a found from bird1
             } else {
                 aim = (Vector2)(bird2.transform.position - clone.transform.position);
-                a = Vector2.Angle(xdir, aim);
+                a = Vector2.SignedAngle(xdir, aim);
                 clone.transform.rotation = Quaternion.Euler(0.0f, 0.0f, a); //Targetting bird2 with angle a found from bird2
             }
         } else if (!bs2.dead){
@@ -155,12 +155,12 @@ public class Spawning : MonoBehaviour
             < Vector3.Distance(bird2.transform.position, clone.transform.position) &&
             !bs1.dead){
                 aim = (Vector2)(bird1.transform.position - clone.transform.position);
-                a = Vector2.Angle(xdir, aim);
-                clone.transform.rotation = Quaternion.Euler(0.0f, 0.0f, -a); //Angle is negative cause facing opposite direction
+                a = Vector2.SignedAngle(xdir, aim);
+                clone.transform.rotation = Quaternion.Euler(0.0f, 0.0f, a); //Angle is negative cause facing opposite direction
             } else {
                 aim = (Vector2)(bird2.transform.position - clone.transform.position);
-                a = Vector2.Angle(xdir, aim);
-                clone.transform.rotation = Quaternion.Euler(0.0f, 0.0f, -a);
+                a = Vector2.SignedAngle(xdir, aim);
+                clone.transform.rotation = Quaternion.Euler(0.0f, 0.0f, a);
             }   
         }
     }
