@@ -13,9 +13,7 @@ namespace Minigames.FlyingHazard.Scripts
     {
         public Player otherBird;
 
-        public object backupBird;
         BirdScript bs;
-
         [SerializeField] private Spawning spawning;
         private Camera _mainCamera;
         

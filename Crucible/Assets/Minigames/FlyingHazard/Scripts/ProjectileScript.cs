@@ -17,4 +17,8 @@ public class ProjectileScript : MonoBehaviour
     {
         transform.Translate(velocity*thing*Time.deltaTime);
     }
+
+    public void changeVector(Vector2 input){
+        thing = input;
+    }
 }
