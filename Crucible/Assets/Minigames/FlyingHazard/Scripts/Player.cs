@@ -76,7 +76,7 @@ namespace Minigames.FlyingHazard.Scripts
                         StartCoroutine(SwapWarp());
                         break;
                     case PowerupType.OneUp:
-                        OneUp();
+                        StartCoroutine(OneUp());
                         break;
                     case PowerupType.None:
                         Debug.Log("Powerup " + powerup.name + " is of None type (shouldn't be possible.)");
@@ -227,10 +227,13 @@ namespace Minigames.FlyingHazard.Scripts
             ResetPowerup();
         }
 
-        void OneUp()
+        IEnumerator OneUp()
         {
             lives++;
             livesDisplay.text = "" + lives;
+            yield return new WaitForSecondsRealtime(powerupDuration);
+            
+            ResetPowerup();
             // Put animations/etc here ig.
             // All the functionality rn is in other places in this script.
         }
