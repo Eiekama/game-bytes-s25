@@ -61,10 +61,10 @@ namespace Minigames.FlyingHazard.Scripts
                         StartCoroutine(EnergyShield());
                         break;
                     case PowerupType.RiceMagnet:
-                        RiceMagnet();
+                        StartCoroutine(RiceMagnet());
                         break;
                     case PowerupType.LimeBoost:
-                        LimeBoost();
+                        StartCoroutine(LimeBoost());
                         break;
                     case PowerupType.Stopwatch:
                         StartCoroutine(Stopwatch());
@@ -142,15 +142,15 @@ namespace Minigames.FlyingHazard.Scripts
                 ResetPowerup();
         }
 
-        void RiceMagnet()
+        IEnumerator RiceMagnet()
         {
-            
+            yield return new WaitForSeconds(powerupDuration);
             ResetPowerup();
         }
 
-        void LimeBoost()
+        IEnumerator LimeBoost()
         {
-
+            yield return new WaitForSeconds(powerupDuration);
             ResetPowerup();
         }
 
@@ -252,24 +252,27 @@ namespace Minigames.FlyingHazard.Scripts
     
         IEnumerator Bread(GameObject spawn)
         {
-            if (GetComponent<BirdScript>().player == 1)
-                MinigameController.Instance.AddScore(1, 10);
-            else if (GetComponent<BirdScript>().player == 2)
-                MinigameController.Instance.AddScore(2, 10);
-            Score+=10;
+            AddScore(10);
             yield return new WaitForSeconds(spawning.breadint);
             Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
         }
         void Rice()
         {
-            if (GetComponent<BirdScript>().player == 1)
-                MinigameController.Instance.AddScore(1, 1);
-            else if (GetComponent<BirdScript>().player == 2)
-                MinigameController.Instance.AddScore(2, 1);
-            Score++;
+            AddScore(1);
         }
 
-        public PowerupType getCurrent(){ // Using this for powerup spawning detection
+        void AddScore(int score)
+        {
+            int playerNum = GetComponent<BirdScript>().player;
+            if (currentPowerup == PowerupType.LimeBoost)
+            {
+                score *= Powerup.LIMEBOOSTMULT;
+            }
+            MinigameController.Instance.AddScore(playerNum, score);
+            this.Score += score;
+        }
+
+        public PowerupType getPowerup(){ // Using this for powerup spawning detection
             return currentPowerup;
         }
 

@@ -55,7 +55,7 @@ public class Spawning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (powerupCount < powerupMax && on == true && t1.getCurrent() == Minigames.FlyingHazard.Scripts.PowerupType.None && t2.getCurrent() == Minigames.FlyingHazard.Scripts.PowerupType.None)
+        if (powerupCount < powerupMax && on == true && t1.getPowerup() == Minigames.FlyingHazard.Scripts.PowerupType.None && t2.getPowerup() == Minigames.FlyingHazard.Scripts.PowerupType.None)
             StartCoroutine(spawn4(powerint + Random.Range(-2f,2f), power));
     }
 
