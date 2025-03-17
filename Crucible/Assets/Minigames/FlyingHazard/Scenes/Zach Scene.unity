@@ -1807,13 +1807,13 @@ MonoBehaviour:
   weapon1: {fileID: 818944848}
   weapon2: {fileID: 331868242}
   muncher: {fileID: 576488082}
-  inter1: 4
-  inter2: 4
+  inter1: 3
+  inter2: 3
   muncherint: 6
   breadint: 2
   powerint: 5
-  riceint: 1
-  Scaling: 1
+  riceint: 2.2
+  Scaling: 3
   powerupMax: 1
   power:
   - {fileID: 1074087443}
