@@ -1807,12 +1807,13 @@ MonoBehaviour:
   weapon1: {fileID: 818944848}
   weapon2: {fileID: 331868242}
   muncher: {fileID: 576488082}
-  inter1: 1
-  inter2: 1
+  inter1: 4
+  inter2: 4
   muncherint: 6
   breadint: 2
   powerint: 5
-  riceint: 2
+  riceint: 1
+  Scaling: 1
   powerupMax: 1
   power:
   - {fileID: 1074087443}
@@ -2017,6 +2018,7 @@ GameObject:
   - component: {fileID: 1181323605}
   - component: {fileID: 1181323606}
   - component: {fileID: 1181323607}
+  - component: {fileID: 1181323608}
   m_Layer: 0
   m_Name: Rice
   m_TagString: Collectable
@@ -2153,6 +2155,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 1179703084}
   player2: {fileID: 1650482991}
+--- !u!50 &1181323608
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181323601}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1289851227
 GameObject:
   m_ObjectHideFlags: 0

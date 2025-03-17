@@ -32,6 +32,7 @@ public class Spawning : MonoBehaviour
     public float powerint;
     public float riceint;
 
+    public float Scaling;
     private int powerupCount = 0;
 
     [SerializeField] private int powerupMax;
@@ -61,13 +62,14 @@ public class Spawning : MonoBehaviour
 
     private IEnumerator spawn1(float interval, GameObject enemy){
         GameObject clone;
-        yield return new WaitForSeconds(interval);
-        clone = Instantiate(enemy, new Vector3(Random.Range(-9f, 9f), -5f, 0f), Quaternion.identity);
+        float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
+        yield return new WaitForSeconds(interval/timeScaling);
+        clone = Instantiate(enemy, new Vector3(Random.Range(-9.8f, 9.8f), -5f, 0f), Quaternion.identity);
         clone.GetComponent<ProjectileScript>().enabled = false;
         clone.GetComponent<CircleCollider2D>().enabled = false;
         clone.AddComponent<Destroyer>();        
         StartCoroutine(flickerSpawn(clone));
-        if (interval < 0.25f)
+        if (interval < 0.5f)
             interval += 0.5f;
         StartCoroutine(spawn1(interval + Random.Range(-0.5f, 0.5f), enemy));
         yield return new WaitForSeconds(2);
@@ -76,13 +78,14 @@ public class Spawning : MonoBehaviour
     }
 
     private IEnumerator spawn2(float interval, GameObject enemy){
-        yield return new WaitForSeconds(interval);
-        GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9f, 9f), 5f, 0f), Quaternion.identity);
+        float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
+        yield return new WaitForSeconds(interval/timeScaling);
+        GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9.8f, 9.8f), 5f, 0f), Quaternion.identity);
         clone.AddComponent<Destroyer>();
         clone.GetComponent<ProjectileScript>().enabled = false;
         clone.GetComponent<CapsuleCollider2D>().enabled = false;
         StartCoroutine(flickerSpawn(clone));   
-        if (interval < 0.25f)
+        if (interval < 0.5f)
             interval += 0.5f;
         StartCoroutine(spawn2(interval + Random.Range(-0.5f, 0.5f), enemy));
         yield return new WaitForSeconds(2);
@@ -91,8 +94,10 @@ public class Spawning : MonoBehaviour
     }
 
     private IEnumerator spawn3(float interval, GameObject enemy){
-        yield return new WaitForSeconds(interval);
-        GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9f, 9f), Random.Range(-5f, 5f), 0f), Quaternion.identity);
+        float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
+        Debug.Log("Scale:" + timeScaling);
+        yield return new WaitForSeconds(interval/timeScaling);
+        GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-4.7f, 4.7f), 0f), Quaternion.identity);
         //StartCoroutine(flickerSpawn(clone));
         //clone.GetComponent<CapsuleCollider2D>.enabled = false;
         StartCoroutine(spawn3(interval, enemy));
@@ -103,7 +108,7 @@ public class Spawning : MonoBehaviour
         powerupCount++;
         yield return new WaitForSeconds(interval);
         int a = Random.Range(0, enemy.Length);
-        GameObject clone = Instantiate(enemy[a], new Vector3(Random.Range(-9f, 9f), Random.Range(-5f, 5f), 0f), Quaternion.identity);
+        GameObject clone = Instantiate(enemy[a], new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-5f, 5f), 0f), Quaternion.identity);
         StartCoroutine(flickerSpawn(clone));
         clone.GetComponent<CircleCollider2D>().enabled = false;
         yield return new WaitForSeconds(2);
@@ -116,12 +121,13 @@ public class Spawning : MonoBehaviour
         Vector2 aim;
         float a;
         GameObject clone;
-        yield return new WaitForSeconds(interval); // This is regulating how long it takes for a muncher to spawn after running coroutine
-        if (interval < 2f)
-            interval += 4f; // Hardcapping interval so not too many spawn
+        float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
+        yield return new WaitForSeconds(interval/timeScaling); // This is regulating how long it takes for a muncher to spawn after running coroutine
+        if (interval < 3f)
+            interval += 1f; // Hardcapping interval so not too many spawn
         StartCoroutine(munchSpawnTest(muncherint + Random.Range(-2f, 2f), muncher)); //Starts another muncher spawn
         if (Random.Range(0.0f, 1.0f) < 0.5){ //The random chooses which side spawns
-            clone = Instantiate(enemy, new Vector3(-9f, Random.Range(-5f, 5f), 0f), Quaternion.identity);
+            clone = Instantiate(enemy, new Vector3(-10f, Random.Range(-5f, 5f), 0f), Quaternion.identity);
             clone.AddComponent<Destroyer>();
             StartCoroutine(flickerSpawn(clone)); 
             clone.GetComponent<ProjectileScript>().enabled = false;            
@@ -141,7 +147,7 @@ public class Spawning : MonoBehaviour
                 clone.transform.rotation = Quaternion.Euler(0.0f, 0.0f, a); //Targetting bird2 with angle a found from bird2
             }
         } else if (!bs2.dead){
-            clone = Instantiate(enemy, new Vector3(9f, Random.Range(-5f, 5f), 0f), Quaternion.identity);
+            clone = Instantiate(enemy, new Vector3(10f, Random.Range(-5f, 5f), 0f), Quaternion.identity);
             clone.GetComponent<SpriteRenderer>().flipX = true; //Flipping the flickering sprite to face left
             clone.AddComponent<Destroyer>();
             StartCoroutine(flickerSpawn(clone));
