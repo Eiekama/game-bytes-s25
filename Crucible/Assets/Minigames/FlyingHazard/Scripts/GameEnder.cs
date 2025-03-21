@@ -8,6 +8,7 @@ public class GameEnder : MonoBehaviour
     public GameObject bird1;
     public GameObject bird2;
 
+    private GameObject music;
     BirdScript BirdScript1;
 
     BirdScript BirdScript2;
@@ -15,10 +16,13 @@ public class GameEnder : MonoBehaviour
     Minigames.FlyingHazard.Scripts.Player p1;
 
     Minigames.FlyingHazard.Scripts.Player p2;
-
+    
+    private AudioSource audio;
     // Start is called before the first frame update
     void Start()
     {
+        music = GameObject.Find("Music Player");
+        audio = music.GetComponent<AudioSource>();
         BirdScript1 = bird1.GetComponent<BirdScript>();
         BirdScript2 = bird2.GetComponent<BirdScript>();
         p1 = bird1.GetComponent<Minigames.FlyingHazard.Scripts.Player>();
@@ -37,6 +41,17 @@ public class GameEnder : MonoBehaviour
             {
                 MinigameController.Instance.FinishGame(p1.Score > p2.Score ? LastMinigameFinish.P1WIN : LastMinigameFinish.P2WIN);
             }
+            StartCoroutine(stopMusic());
         }    
+    }
+
+    private IEnumerator stopMusic(){
+        yield return new WaitForSeconds(2f);
+        audio.mute = true;
+        /*while (audio.volume > 0){
+            yield return new WaitForSeconds(1f);
+            audio.volume -= 0.01f;
+        }*/
+        //Was trying to make the music fade out but it wasn't working and not sure why
     }
 }
