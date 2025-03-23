@@ -1959,7 +1959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a20f54d41641e428e199b39235246f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enabled: 0
+  enabled: 1
   bird1: {fileID: 1179703078}
   bird2: {fileID: 1650482987}
   bread: {fileID: 24042715}
@@ -2076,6 +2076,7 @@ MonoBehaviour:
   moveSpeed: 3
   jumpStrength: 15
   gravityMax: 3
+  direction: 2
 --- !u!212 &1179703082
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2850,6 +2851,7 @@ MonoBehaviour:
   moveSpeed: 3
   jumpStrength: 15
   gravityMax: 3
+  direction: 2
 --- !u!114 &1650482991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3253,6 +3255,11 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
+        type: 3}
+      propertyPath: direction
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3581989506789138616, guid: 080d853bca669b4419e7cd57e34a7bb9,
         type: 3}
