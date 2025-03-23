@@ -6,7 +6,7 @@ public class ProjectileScript : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private float velocity;
-    [SerializeField] private Vector2 thing;
+    [SerializeField] private Vector2 direction;
     void Start()
     {
 
@@ -15,6 +15,10 @@ public class ProjectileScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(velocity*thing*Time.deltaTime);
+        transform.Translate(velocity*Time.deltaTime*direction);
+    }
+
+    public void changeDirection(Vector2 input){
+        direction = input;
     }
 }

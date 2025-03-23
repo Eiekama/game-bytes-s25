@@ -15,6 +15,8 @@ namespace Minigames.FlyingHazard.Scripts
     }
     public class Powerup : MonoBehaviour
     {
+        public const int LIMEBOOSTMULT = 3;
+        
         public PowerupType type;
         
         private void OnTriggerEnter2D(Collider2D collider)
