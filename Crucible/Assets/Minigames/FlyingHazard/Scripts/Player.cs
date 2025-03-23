@@ -283,6 +283,7 @@ namespace Minigames.FlyingHazard.Scripts
             //Time to wait for the bird to fall off the screen
             bs.getAnim().SetBool("Death", false);
             bs.getAnim().SetTrigger("Respawn");
+            bs.direction = Direction.Neutral;
             yield return new WaitForSeconds(1);
             //Time to wait for the bird's animations to finish (This will have to be set or else the bird will respawn face down)
             if(bs.player == 1){
