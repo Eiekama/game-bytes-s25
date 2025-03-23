@@ -7,7 +7,7 @@ using UnityEngine;
 public class Spawning : MonoBehaviour
 {
 
-    public bool on;
+    public bool enabled;
     public GameObject bird1;
 
     private BirdScript bs1;
@@ -18,8 +18,8 @@ public class Spawning : MonoBehaviour
     Minigames.FlyingHazard.Scripts.Player t2;
     public GameObject bread;
     public GameObject rice;
-    public GameObject weapon1;
-    public GameObject weapon2;
+    public GameObject spikeBalloonEnemy;
+    public GameObject dropEnemy;
 
     public GameObject muncher;
     public float inter1;
@@ -36,7 +36,7 @@ public class Spawning : MonoBehaviour
     private int powerupCount = 0;
 
     [SerializeField] private int powerupMax;
-    public GameObject[] power;
+    public GameObject[] powerups;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,11 +44,14 @@ public class Spawning : MonoBehaviour
         t2 = bird2.GetComponent<Minigames.FlyingHazard.Scripts.Player>();
         bs1 = bird1.GetComponent<BirdScript>();
         bs2 = bird2.GetComponent<BirdScript>();
-        if (on == true){
-            Instantiate(bread, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
-            StartCoroutine(spawn1(inter1, weapon1));
-            StartCoroutine(spawn2(inter2, weapon2));
-            StartCoroutine(spawn3(riceint, rice));
+        if (enabled){
+            Instantiate(bread,
+                new Vector3(UnityEngine.Random.Range(-9f, 9f),
+                    UnityEngine.Random.Range(-4.8f, 4.8f), 0f),
+                Quaternion.identity);
+            StartCoroutine(spawnBalloon(inter1, spikeBalloonEnemy));
+            StartCoroutine(spawnDrop(inter2, dropEnemy));
+            StartCoroutine(spawnRice(riceint));
             StartCoroutine(munchSpawnTest(muncherint, muncher));
         }
     }
@@ -56,28 +59,35 @@ public class Spawning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (powerupCount < powerupMax && on == true && t1.getPowerup() == Minigames.FlyingHazard.Scripts.PowerupType.None && t2.getPowerup() == Minigames.FlyingHazard.Scripts.PowerupType.None)
-            StartCoroutine(spawn4(powerint + Random.Range(-2f,2f), power));
+        if (powerupCount < powerupMax
+            && enabled
+            && t1.getPowerup() == Minigames.FlyingHazard.Scripts.PowerupType.None
+            && t2.getPowerup() == Minigames.FlyingHazard.Scripts.PowerupType.None)
+        {
+            StartCoroutine(spawnPowerup(powerint + Random.Range(-2f,2f)));
+        }
     }
 
-    private IEnumerator spawn1(float interval, GameObject enemy){
+    // Note: If these spawn functions are only ever called on this specific enemy,
+    // can remove the second parameter & reference it directly. 
+    private IEnumerator spawnBalloon(float interval, GameObject enemy){
         GameObject clone;
         float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
         yield return new WaitForSeconds(interval/timeScaling);
         clone = Instantiate(enemy, new Vector3(Random.Range(-9.8f, 9.8f), -5f, 0f), Quaternion.identity);
         clone.GetComponent<ProjectileScript>().enabled = false;
         clone.GetComponent<CircleCollider2D>().enabled = false;
-        clone.AddComponent<Destroyer>();        
+        clone.AddComponent<Destroyer>();
         StartCoroutine(flickerSpawn(clone));
         if (interval < 0.5f)
             interval += 0.5f;
-        StartCoroutine(spawn1(interval + Random.Range(-0.5f, 0.5f), enemy));
+        StartCoroutine(spawnBalloon(interval + Random.Range(-0.5f, 0.5f), enemy));
         yield return new WaitForSeconds(2);
         clone.GetComponent<ProjectileScript>().enabled = true;
         clone.GetComponent<CircleCollider2D>().enabled = true;
     }
 
-    private IEnumerator spawn2(float interval, GameObject enemy){
+    private IEnumerator spawnDrop(float interval, GameObject enemy){
         float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
         yield return new WaitForSeconds(interval/timeScaling);
         GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9.8f, 9.8f), 5f, 0f), Quaternion.identity);
@@ -87,28 +97,28 @@ public class Spawning : MonoBehaviour
         StartCoroutine(flickerSpawn(clone));   
         if (interval < 0.5f)
             interval += 0.5f;
-        StartCoroutine(spawn2(interval + Random.Range(-0.5f, 0.5f), enemy));
+        StartCoroutine(spawnDrop(interval + Random.Range(-0.5f, 0.5f), enemy));
         yield return new WaitForSeconds(2);
         clone.GetComponent<ProjectileScript>().enabled = true;
         clone.GetComponent<CapsuleCollider2D>().enabled = true;
     }
 
-    private IEnumerator spawn3(float interval, GameObject enemy){
+    private IEnumerator spawnRice(float interval){
         float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
         Debug.Log("Scale:" + timeScaling);
         yield return new WaitForSeconds(interval/timeScaling);
-        GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-4.7f, 4.7f), 0f), Quaternion.identity);
+        GameObject clone = Instantiate(rice, new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-4.7f, 4.7f), 0f), Quaternion.identity);
         //StartCoroutine(flickerSpawn(clone));
         //clone.GetComponent<CapsuleCollider2D>.enabled = false;
-        StartCoroutine(spawn3(interval, enemy));
+        StartCoroutine(spawnRice(interval));
         //clone.GetComponent<CapsuleCollider2D>.enabled = true;
     }
 
-    private IEnumerator spawn4(float interval, GameObject[] enemy){
+    private IEnumerator spawnPowerup(float interval){
         powerupCount++;
         yield return new WaitForSeconds(interval);
-        int a = Random.Range(0, enemy.Length);
-        GameObject clone = Instantiate(enemy[a], new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-5f, 5f), 0f), Quaternion.identity);
+        int a = Random.Range(0, powerups.Length);
+        GameObject clone = Instantiate(powerups[a], new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-5f, 5f), 0f), Quaternion.identity);
         StartCoroutine(flickerSpawn(clone));
         clone.GetComponent<CircleCollider2D>().enabled = false;
         yield return new WaitForSeconds(2);

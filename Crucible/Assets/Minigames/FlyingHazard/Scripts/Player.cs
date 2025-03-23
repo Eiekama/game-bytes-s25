@@ -27,7 +27,7 @@ namespace Minigames.FlyingHazard.Scripts
 
         [SerializeField] private TMP_Text livesDisplay;
         private int lives = 3;
-        private const float invincibilityTime = 1f;
+        private const float invincibilityTime = 2f;
         [SerializeField] bool canDie;
         
         public int Score = 0;

@@ -9,7 +9,7 @@ public class Rice : MonoBehaviour
     [SerializeField] private Player player1;
     [SerializeField] private Player player2;
     
-    public const float MAXMAGNETDISTANCE = 10f;
+    public const float MAX_MAGNET_DISTANCE = 5f;
     public const float FRICTION = 0.8f;
     public const float MAGNET_STRENGTH = 10f;
     public const float MAX_SPEED = 7f;
@@ -32,7 +32,7 @@ public class Rice : MonoBehaviour
         }
 
         float dist = Vector3.Distance(gameObject.transform.position, magnetPlayer.gameObject.transform.position);
-        if (dist > MAXMAGNETDISTANCE) {
+        if (dist > MAX_MAGNET_DISTANCE) {
             rb.velocity = rb.velocity * 0.9f;
             return;
         }
