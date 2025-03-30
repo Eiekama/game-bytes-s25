@@ -23,6 +23,11 @@ public class Spawning : MonoBehaviour
     public GameObject dropEnemy;
 
     public GameObject muncher;
+    public GameObject spitSeed;
+    public GameObject bulletSeed;
+    public GameObject vineSeed;
+
+
     public float inter1;
     public float inter2;
 
@@ -54,6 +59,9 @@ public class Spawning : MonoBehaviour
             StartCoroutine(spawnDrop(inter2, dropEnemy));
             StartCoroutine(spawnRice(riceint));
             StartCoroutine(munchSpawnTest(muncherint, muncher));
+            StartCoroutine(seedSpawn(7, spitSeed, 10));
+            StartCoroutine(seedSpawn(20, bulletSeed, 30));
+            StartCoroutine(seedSpawn(25, vineSeed, 40));
         }
     }
 
@@ -185,7 +193,21 @@ public class Spawning : MonoBehaviour
         }
     }
 
-
+    public IEnumerator seedSpawn(float interval, GameObject enemy, float spawnStart){
+        if (MinigameController.Instance.GetElapsedTime() < spawnStart)
+            yield return new WaitForSeconds(spawnStart);
+        yield return new WaitForSeconds(interval);
+            GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9f, 9f), 5f, 0f), Quaternion.identity);
+            clone.GetComponent<ProjectileScript>().changeDirection(new Vector2(0,-1));
+            clone.GetComponent<ProjectileScript>().enabled = false;
+            clone.GetComponent<CapsuleCollider2D>().enabled = false;
+        StartCoroutine(flickerSpawn(clone));   
+        StartCoroutine(seedSpawn(interval, enemy, spawnStart));
+        yield return new WaitForSeconds(2);
+            clone.GetComponent<ProjectileScript>().changeDirection(new Vector2(0,-1));
+            clone.GetComponent<ProjectileScript>().enabled = true;
+            clone.GetComponent<CapsuleCollider2D>().enabled = true;
+    }
     public void subtractPowerupCount(){
         powerupCount--;
     }
