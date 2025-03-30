@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Minigames.FlyingHazard.Scripts;
 using UnityEngine;
 
 
@@ -123,7 +124,10 @@ public class Spawning : MonoBehaviour
         clone.GetComponent<CircleCollider2D>().enabled = false;
         yield return new WaitForSeconds(2);
         clone.GetComponent<CircleCollider2D>().enabled = true;
-
+        if (clone.GetComponent<PlayerMagnet>() != null)
+        {
+            clone.GetComponent<PlayerMagnet>().enabled = true;
+        }
     }
 
     private IEnumerator munchSpawnTest(float interval, GameObject enemy){

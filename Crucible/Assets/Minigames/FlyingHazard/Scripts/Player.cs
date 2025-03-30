@@ -18,6 +18,9 @@ namespace Minigames.FlyingHazard.Scripts
         private Camera _mainCamera;
         
         [SerializeField] private PowerupType currentPowerup = PowerupType.None;
+        // Time before they lose the powerup.
+        // NOTE: Only accurate for some powerups (e.g. not necessarily accurate for Stopwatch/SwapWarp.)
+        [SerializeField] private float powerupSecondsLeft = 0.0f;
         
         // Can't use const + SerializeField AFAIK, but this s/b effectively constant:
         // Measured in seconds
@@ -37,6 +40,19 @@ namespace Minigames.FlyingHazard.Scripts
             _mainCamera = Camera.main;
             bs = GetComponent<BirdScript>();
             livesDisplay.text = "" + lives;
+        }
+
+        private void Update()
+        {
+            if (powerupSecondsLeft > 0.0f)
+            {
+                powerupSecondsLeft -= Time.deltaTime;
+            }
+            if (powerupSecondsLeft <= 0.0f)
+            {
+                powerupSecondsLeft = 0.0f;
+                currentPowerup = PowerupType.None;
+            }
         }
 
         
@@ -61,10 +77,10 @@ namespace Minigames.FlyingHazard.Scripts
                         StartCoroutine(EnergyShield());
                         break;
                     case PowerupType.RiceMagnet:
-                        StartCoroutine(RiceMagnet());
+                        RiceMagnet();
                         break;
                     case PowerupType.LimeBoost:
-                        StartCoroutine(LimeBoost());
+                        LimeBoost();
                         break;
                     case PowerupType.Stopwatch:
                         StartCoroutine(Stopwatch());
@@ -76,7 +92,7 @@ namespace Minigames.FlyingHazard.Scripts
                         StartCoroutine(SwapWarp());
                         break;
                     case PowerupType.OneUp:
-                        StartCoroutine(OneUp());
+                        OneUp();
                         break;
                     case PowerupType.None:
                         Debug.Log("Powerup " + powerup.name + " is of None type (shouldn't be possible.)");
@@ -110,6 +126,8 @@ namespace Minigames.FlyingHazard.Scripts
                 if (canDie){
                     lives--;
                     livesDisplay.text = "" + lives;
+                    Debug.Log("Dying; setting powerup to None");
+                    currentPowerup = PowerupType.None;
                 }    
                 //This first canDie check is to make sure lives get updated before the other functions
                 if (canDie && lives == 0)
@@ -127,10 +145,11 @@ namespace Minigames.FlyingHazard.Scripts
         IEnumerator EnergyShield()
         {
             // Waits until Invincible is finished.
-            yield return StartCoroutine(Invincible(powerupDuration, true));
+            powerupSecondsLeft = powerupDuration;
+            yield return StartCoroutine(Invincible(powerupDuration));
         }
 
-        IEnumerator Invincible(float time, bool resetPowerupAfter = false)
+        IEnumerator Invincible(float time)
         {
             bool couldDie = canDie;
             canDie = false;
@@ -138,32 +157,30 @@ namespace Minigames.FlyingHazard.Scripts
             yield return new WaitForSeconds(time);
 
             canDie = couldDie;
-            if(resetPowerupAfter)
-                ResetPowerup();
         }
 
-        IEnumerator RiceMagnet()
+        void RiceMagnet()
         {
-            yield return new WaitForSeconds(powerupDuration);
-            ResetPowerup();
+            powerupSecondsLeft = powerupDuration;
         }
 
-        IEnumerator LimeBoost()
+        void LimeBoost()
         {
-            yield return new WaitForSeconds(powerupDuration);
-            ResetPowerup();
+            powerupSecondsLeft = powerupDuration;
         }
 
         IEnumerator Stopwatch()
         {
-            // TODO: Make this not have a visible reduction in framerate (i.e. just slow things down manually pbly.)
+            // TODO: Make this not have a visible reduction in framerate? (i.e. just slow things down manually pbly.)
             float slowAmt = 0.5f;
             
             Time.timeScale = slowAmt;
             
+            // E.g. only do it for 5 seconds (instead of 10) with slowAmt = 0.5f.
+            powerupSecondsLeft = powerupDuration * slowAmt;
+            
             yield return new WaitForSecondsRealtime(powerupDuration);
             
-            ResetPowerup();
             Time.timeScale = 1;
         }
 
@@ -184,13 +201,13 @@ namespace Minigames.FlyingHazard.Scripts
             {
                 // Directly set it to <upside down>, in case the anim overshot it.
                 _mainCamera.transform.rotation = new Quaternion(0, 0, 1, 0);
+                
+                powerupSecondsLeft = powerupDuration;
             
                 yield return new WaitForSeconds(powerupDuration);
                 
                 // Rotates it back the right way
                 StartCoroutine(MushroomFlip(-1));
-
-                ResetPowerup();
             }
             else
             {
@@ -201,12 +218,14 @@ namespace Minigames.FlyingHazard.Scripts
         IEnumerator SwapWarp()
         {
             currentPowerup = PowerupType.SwapWarp;
+            powerupSecondsLeft = powerupDuration;
             
             if (otherBird.bs.dead)
             {
                 // TODO: Hold onto the powerup until another player spawns, then swap?
                 Debug.Log("No other bird to swap with :(");
                 // Early return if not 2 players in play:
+                powerupSecondsLeft = 0.0001f; // Immediately lose the powerup.
                 yield break;
             }
 
@@ -224,29 +243,23 @@ namespace Minigames.FlyingHazard.Scripts
             
             // Subtract off the time spent doing the animation
             yield return new WaitForSeconds(powerupDuration - 0.0f);
-            ResetPowerup();
+            // ResetPowerup();
         }
 
-        IEnumerator OneUp()
+        void OneUp()
         {
             lives++;
             livesDisplay.text = "" + lives;
-            yield return new WaitForSecondsRealtime(powerupDuration);
             
-            ResetPowerup();
+            powerupSecondsLeft = powerupDuration;
             // Put animations/etc here ig.
             // All the functionality rn is in other places in this script.
-        }
-
-        private void ResetPowerup()
-        {
-            currentPowerup = PowerupType.None;
         }
 
         // TODO: Check if this is ever called.
         private void OnDestroy()
         {
-            Debug.Log(name + " Destoryed");
+            Debug.Log(name + " Destroyed");
             _mainCamera.transform.rotation = new Quaternion(0, 0, 0, 1);
         }
     
@@ -284,6 +297,8 @@ namespace Minigames.FlyingHazard.Scripts
             bs.getAnim().SetBool("Death", false);
             bs.getAnim().SetTrigger("Respawn");
             bs.direction = Direction.Neutral;
+            
+            
             yield return new WaitForSeconds(1);
             //Time to wait for the bird's animations to finish (This will have to be set or else the bird will respawn face down)
             if(bs.player == 1){
@@ -301,7 +316,7 @@ namespace Minigames.FlyingHazard.Scripts
                 gameObject.GetComponent<SpriteRenderer>().color = Color.black;
                 yield return new WaitForSeconds(0.2f);
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-            }    
+            }
             canDie = true;
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
             gameObject.GetComponent<Rigidbody2D>().velocity = new UnityEngine.Vector2(0.0f, 0.0f);
@@ -309,7 +324,7 @@ namespace Minigames.FlyingHazard.Scripts
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 4.0f;
             bs.dead = false;
             gameObject.GetComponent<CircleCollider2D>().enabled = true;
-            StartCoroutine(Invincible(invincibilityTime, true));
+            StartCoroutine(Invincible(invincibilityTime));
         }
 
         public int getLives(){
