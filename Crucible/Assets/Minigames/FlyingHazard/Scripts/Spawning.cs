@@ -21,7 +21,6 @@ public class Spawning : MonoBehaviour
     public GameObject rice;
     public GameObject spikeBalloonEnemy;
     public GameObject dropEnemy;
-
     public GameObject muncher;
     public GameObject spitSeed;
     public GameObject bulletSeed;
