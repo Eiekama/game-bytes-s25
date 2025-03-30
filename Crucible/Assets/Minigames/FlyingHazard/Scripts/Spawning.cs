@@ -72,7 +72,7 @@ public class Spawning : MonoBehaviour
     // can remove the second parameter & reference it directly. 
     private IEnumerator spawnBalloon(float interval, GameObject enemy){
         GameObject clone;
-        float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
+        float timeScaling = (((MinigameController.Instance.GetElapsedTime())/180f)*Scaling)+1;
         yield return new WaitForSeconds(interval/timeScaling);
         clone = Instantiate(enemy, new Vector3(Random.Range(-9.8f, 9.8f), -5f, 0f), Quaternion.identity);
         clone.GetComponent<ProjectileScript>().enabled = false;

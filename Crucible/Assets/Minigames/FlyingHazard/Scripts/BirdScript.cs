@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Direction
+{
+    Left,
+    Right,
+    Neutral
+}
+
 public class BirdScript : MonoBehaviour
 {
     public bool dead;
@@ -17,6 +24,11 @@ public class BirdScript : MonoBehaviour
     [SerializeField] private float jumpStrength;
 
     [SerializeField] private float gravityMax;
+    
+    public Direction direction;
+    // How quickly the bird changes direction (left/right) (higher -> faster)
+    public const float TRACTION = 0.25f;
+    private SpriteRenderer sprite;
 
     Animator birdAnim;
     
@@ -29,8 +41,13 @@ public class BirdScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         gravStorage = rb.gravityScale;
         birdAnim = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
+        direction = Direction.Neutral;
         //When the actual game is made this will cause the bird to start moving automatically.
         //I'm not currently running it as it's annoying for testing collisions.
+        // direction = Direction.Left;
+        // sprite.flipX = true;
+        // Shouldn't need?:
         //rb.velocity = new Vector2(moveSpeed*2.0f, rb.velocity.y);
     }
 
@@ -43,16 +60,25 @@ public class BirdScript : MonoBehaviour
             }
 
             if(Input.GetKeyDown(left)){
-                GetComponent<SpriteRenderer>().flipX = true;
+                sprite.flipX = true;
+                direction = Direction.Left;
+            } else if(Input.GetKeyDown(right)) {
+                sprite.flipX = false;
+                direction = Direction.Right;
+            }
+            if(direction == Direction.Left) {
                 //transform.Translate(Vector2.left * (Time.fixedDeltaTime * moveSpeed));
-                rb.velocity = new Vector2(moveSpeed*-2.0f, rb.velocity.y);
+                float xVelocity = rb.velocity.x - TRACTION;
+                xVelocity = Math.Max(xVelocity, -2*moveSpeed);
+                rb.velocity = new Vector2(xVelocity, rb.velocity.y);
+            } else if (direction == Direction.Right) {
+                //transform.Translate(Vector2.right * (Time.fixedDeltaTime * moveSpeed));
+                float xVelocity = rb.velocity.x + TRACTION;
+                xVelocity = Math.Min(xVelocity, 2*moveSpeed);
+                rb.velocity = new Vector2(xVelocity, rb.velocity.y);
             }
 
-            if(Input.GetKeyDown(right)){
-                GetComponent<SpriteRenderer>().flipX = false;
-                //transform.Translate(Vector2.right * (Time.fixedDeltaTime * moveSpeed));
-                rb.velocity = new Vector2(moveSpeed*2.0f, rb.velocity.y);
-            }
+            
         } else {
             rb.gravityScale = 0.0f;
             if (rb.velocity.x != 0.0f){
