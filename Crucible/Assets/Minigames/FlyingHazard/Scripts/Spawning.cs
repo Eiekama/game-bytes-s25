@@ -196,7 +196,7 @@ public class Spawning : MonoBehaviour
         if (MinigameController.Instance.GetElapsedTime() < spawnStart)
             yield return new WaitForSeconds(spawnStart);
         yield return new WaitForSeconds(interval);
-            GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9f, 9f), 5f, 0f), Quaternion.identity);
+            GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9f, 9f), 4.8f, 0f), Quaternion.identity);
             clone.GetComponent<ProjectileScript>().changeDirection(new Vector2(0,-1));
             clone.GetComponent<ProjectileScript>().enabled = false;
             clone.GetComponent<CapsuleCollider2D>().enabled = false;
