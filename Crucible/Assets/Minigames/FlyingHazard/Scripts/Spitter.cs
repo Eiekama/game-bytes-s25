@@ -33,6 +33,7 @@ public class Spitter : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             GameObject clone = Instantiate(projectile, (Vector2)transform.position + new Vector2(0, 0.4f), Quaternion.identity);
             clone.GetComponent<ProjectileScript>().changeDirection(new Vector2(0,1));
+            clone.AddComponent<Destroyer>();
             yield return new WaitForSeconds(0.7f);
         }
         yield return new WaitForSeconds(0.5f);
