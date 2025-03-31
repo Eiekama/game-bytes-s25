@@ -36,12 +36,16 @@ public class BirdScript : MonoBehaviour
 
     float gravStorage;
 
+    AudioSource[] jumps;
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         gravStorage = rb.gravityScale;
         birdAnim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        jumps = GetComponents<AudioSource>();
         direction = Direction.Neutral;
         //When the actual game is made this will cause the bird to start moving automatically.
         //I'm not currently running it as it's annoying for testing collisions.
@@ -57,6 +61,7 @@ public class BirdScript : MonoBehaviour
         if(!dead){
             if(Input.GetKeyDown(flap)){
                 flappy();
+                jumps[UnityEngine.Random.Range(0,3)].Play();
             }
 
             if(Input.GetKeyDown(left)){
