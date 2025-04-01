@@ -59,7 +59,7 @@ public class Spawning : MonoBehaviour
             StartCoroutine(spawnRice(riceint));
             StartCoroutine(munchSpawnTest(muncherint, muncher));
             StartCoroutine(seedSpawn(7, spitSeed, 10));
-            StartCoroutine(seedSpawn(20, bulletSeed, 30));
+            StartCoroutine(seedSpawn(15, bulletSeed, 30));
             StartCoroutine(seedSpawn(25, vineSeed, 40));
         }
     }
