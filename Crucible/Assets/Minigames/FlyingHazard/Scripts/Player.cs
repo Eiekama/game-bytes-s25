@@ -71,6 +71,7 @@ namespace Minigames.FlyingHazard.Scripts
                 PowerupType powerupType = powerup.GetComponent<Powerup>().type;
                 currentPowerup = powerupType;
                 spawning.subtractPowerupCount(); //This helps track powerups on field.
+                bs.jumps_Powerups[UnityEngine.Random.Range(3,7)].Play();
                 switch (powerupType)
                 {
                     case PowerupType.EnergyShield:
