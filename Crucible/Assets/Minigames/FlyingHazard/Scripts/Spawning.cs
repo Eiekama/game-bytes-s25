@@ -87,7 +87,7 @@ public class Spawning : MonoBehaviour
         clone.GetComponent<CircleCollider2D>().enabled = false;
         clone.AddComponent<Destroyer>();
         StartCoroutine(flickerSpawn(clone));
-        if (interval < 0.5f)
+        if (interval < 0.8f)
             interval += 0.5f;
         StartCoroutine(spawnBalloon(interval + Random.Range(-0.5f, 0.5f), enemy));
         yield return new WaitForSeconds(2);
@@ -103,7 +103,7 @@ public class Spawning : MonoBehaviour
         clone.GetComponent<ProjectileScript>().enabled = false;
         clone.GetComponent<CapsuleCollider2D>().enabled = false;
         StartCoroutine(flickerSpawn(clone));   
-        if (interval < 0.5f)
+        if (interval < 0.8f)
             interval += 0.5f;
         StartCoroutine(spawnDrop(interval + Random.Range(-0.5f, 0.5f), enemy));
         yield return new WaitForSeconds(2);
