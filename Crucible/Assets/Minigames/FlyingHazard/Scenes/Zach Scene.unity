@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawn: {fileID: 447782152}
-  time: 10
+  time: 8
   spawnOffset: 0.55
 --- !u!114 &81325088
 MonoBehaviour:
