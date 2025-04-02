@@ -37,6 +37,12 @@ public class Spawning : MonoBehaviour
     public float powerint;
     public float riceint;
 
+    public float spitInt;
+    public float spitStart;
+    public float bulletInt;
+    public float bulletStart;
+    public float vineInt;
+    public float vineStart;
     public float Scaling;
     private int powerupCount = 0;
 
@@ -58,9 +64,9 @@ public class Spawning : MonoBehaviour
             StartCoroutine(spawnDrop(inter2, dropEnemy));
             StartCoroutine(spawnRice(riceint));
             StartCoroutine(munchSpawnTest(muncherint, muncher));
-            StartCoroutine(seedSpawn(7, spitSeed, 10));
-            StartCoroutine(seedSpawn(15, bulletSeed, 30));
-            StartCoroutine(seedSpawn(25, vineSeed, 40));
+            StartCoroutine(seedSpawn(spitInt, spitSeed, spitStart));
+            StartCoroutine(seedSpawn(bulletInt, bulletSeed, bulletStart));
+            StartCoroutine(seedSpawn(vineInt, vineSeed, vineStart));
         }
     }
 

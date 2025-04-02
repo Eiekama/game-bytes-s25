@@ -2571,6 +2571,12 @@ MonoBehaviour:
   breadint: 2
   powerint: 5
   riceint: 1.6
+  spitInt: 7
+  spitStart: 10
+  bulletInt: 15
+  bulletStart: 30
+  vineInt: 25
+  vineStart: 40
   Scaling: 3
   powerupMax: 1
   powerups:
