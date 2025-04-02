@@ -2570,7 +2570,7 @@ MonoBehaviour:
   muncherint: 6
   breadint: 2
   powerint: 5
-  riceint: 2.2
+  riceint: 1.6
   Scaling: 3
   powerupMax: 1
   powerups:

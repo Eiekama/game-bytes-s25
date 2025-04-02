@@ -124,21 +124,23 @@ namespace Minigames.FlyingHazard.Scripts
 
             if (collider.gameObject.CompareTag("Danger"))
             {
-                if (canDie){
-                    lives--;
-                    livesDisplay.text = "" + lives;
-                    Debug.Log("Dying; setting powerup to None");
-                    currentPowerup = PowerupType.None;
-                }    
+                if (currentPowerup != PowerupType.EnergyShield){
+                    if (canDie){
+                        lives--;
+                        livesDisplay.text = "" + lives;
+                        Debug.Log("Dying; setting powerup to None");
+                        currentPowerup = PowerupType.None;
+                    }    
                 //This first canDie check is to make sure lives get updated before the other functions
-                if (canDie && lives == 0)
-                {
-                    bs.getAnim().SetBool("Death", true);
-                    bs.dead = true;
-                } else if (canDie && lives > 0) {
-                    bs.getAnim().SetBool("Death", true);
-                    bs.dead = true;
-                    StartCoroutine(respawnBird());
+                    if (canDie && lives == 0)
+                    {
+                        bs.getAnim().SetBool("Death", true);
+                        bs.dead = true;
+                    } else if (canDie && lives > 0) {
+                        bs.getAnim().SetBool("Death", true);
+                        bs.dead = true;
+                        StartCoroutine(respawnBird());
+                }
                 }
             }
         }
@@ -147,7 +149,7 @@ namespace Minigames.FlyingHazard.Scripts
         {
             // Waits until Invincible is finished.
             powerupSecondsLeft = powerupDuration;
-            yield return StartCoroutine(Invincible(powerupDuration));
+            yield return new WaitForSeconds(powerupDuration);
         }
 
         IEnumerator Invincible(float time)
