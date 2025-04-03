@@ -1810,8 +1810,6 @@ GameObject:
   - component: {fileID: 1074087444}
   - component: {fileID: 1074087448}
   - component: {fileID: 1074087447}
-  - component: {fileID: 1074087449}
-  - component: {fileID: 1074087450}
   m_Layer: 0
   m_Name: Rice Magnet
   m_TagString: Powerup
@@ -1938,44 +1936,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
---- !u!114 &1074087449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8823638109946714809, guid: 2f976af8f385f0845b82baabebe79522,
-    type: 3}
-  m_PrefabInstance: {fileID: 8823638111020670112}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074087443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d547f6278846477bb011442f39cda09c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player1: {fileID: 1179703084}
-  player2: {fileID: 1650482991}
-  enabled: 0
---- !u!50 &1074087450
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8823638109946714810, guid: 2f976af8f385f0845b82baabebe79522,
-    type: 3}
-  m_PrefabInstance: {fileID: 8823638111020670112}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074087443}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 1
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1137564206
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,9 +1982,7 @@ MonoBehaviour:
   Scaling: 3
   powerupMax: 1
   powerups:
-  - {fileID: 1074087443}
   - {fileID: 1600850652}
-  - {fileID: 2098200082}
 --- !u!4 &1137564208
 Transform:
   m_ObjectHideFlags: 0
@@ -2699,6 +2657,8 @@ GameObject:
   - component: {fileID: 1600850655}
   - component: {fileID: 1600850657}
   - component: {fileID: 1600850656}
+  - component: {fileID: 1600850659}
+  - component: {fileID: 1600850658}
   m_Layer: 0
   m_Name: Mushroom Flip
   m_TagString: Powerup
@@ -2819,6 +2779,42 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.01}
   serializedVersion: 2
   m_Radius: 0.14
+--- !u!114 &1600850658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600850652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d547f6278846477bb011442f39cda09c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 1179703084}
+  player2: {fileID: 1650482991}
+  enabled: 0
+--- !u!50 &1600850659
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600850652}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1650482987
 GameObject:
   m_ObjectHideFlags: 0
@@ -3286,7 +3282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104c856bedf4475f8d5c34bf85efb73d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 5
 --- !u!1001 &3581989507004748572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3518,5 +3514,6 @@ PrefabInstance:
       propertyPath: m_LinearDrag
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2f976af8f385f0845b82baabebe79522, type: 3}

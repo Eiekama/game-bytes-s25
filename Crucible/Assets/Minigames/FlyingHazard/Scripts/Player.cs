@@ -25,11 +25,13 @@ namespace Minigames.FlyingHazard.Scripts
         // Can't use const + SerializeField AFAIK, but this s/b effectively constant:
         // Measured in seconds
         [SerializeField] private int powerupDuration = 10;
+        
         public float screenRotationTime = 0.25f;
-        // Seconds the bird is invincible after using a OneUp. 
+        private static bool _screenUpsideDown = false;
 
         [SerializeField] private TMP_Text livesDisplay;
         private int lives = 3;
+        // Seconds the bird is invincible after using a OneUp. 
         private const float invincibilityTime = 2f;
         [SerializeField] bool canDie;
         
@@ -47,11 +49,14 @@ namespace Minigames.FlyingHazard.Scripts
             if (powerupSecondsLeft > 0.0f)
             {
                 powerupSecondsLeft -= Time.deltaTime;
-            }
-            if (powerupSecondsLeft <= 0.0f)
+            } else if (powerupSecondsLeft < 0.0f)
             {
                 powerupSecondsLeft = 0.0f;
                 currentPowerup = PowerupType.None;
+            }
+            else
+            {
+                powerupSecondsLeft = 0.0f;
             }
         }
 
@@ -122,26 +127,31 @@ namespace Minigames.FlyingHazard.Scripts
                 Destroy(collect);
             }
 
-            if (collider.gameObject.CompareTag("Danger"))
+            if (canDie && collider.gameObject.CompareTag("Danger")
+             && currentPowerup != PowerupType.EnergyShield)
             {
-                if (currentPowerup != PowerupType.EnergyShield){
-                    if (canDie){
-                        lives--;
-                        livesDisplay.text = "" + lives;
-                        Debug.Log("Dying; setting powerup to None");
-                        currentPowerup = PowerupType.None;
-                    }    
-                //This first canDie check is to make sure lives get updated before the other functions
-                    if (canDie && lives == 0)
-                    {
-                        bs.getAnim().SetBool("Death", true);
-                        bs.dead = true;
-                    } else if (canDie && lives > 0) {
-                        bs.getAnim().SetBool("Death", true);
-                        bs.dead = true;
-                        StartCoroutine(respawnBird());
-                }
-                }
+                Die();
+            }
+        }
+
+        private void Die()
+        {
+            Debug.Log("Dying");
+            lives--;
+            livesDisplay.text = "" + lives;
+            currentPowerup = PowerupType.None;
+            bs.getAnim().SetBool("Death", true);
+            bs.dead = true;
+            //This first canDie check is to make sure lives get updated before the other functions
+            if (lives > 0) {
+                StartCoroutine(respawnBird());
+            }
+
+            if (_screenUpsideDown)
+            {
+                Debug.Log("Flipping Screen Back");
+                // TODO: Check if all these flipscreen-related changes work.
+                StartCoroutine(FlipScreen(-1));
             }
         }
         
@@ -187,10 +197,18 @@ namespace Minigames.FlyingHazard.Scripts
             Time.timeScale = 1;
         }
 
-        IEnumerator MushroomFlip(int direction = 1)
+        IEnumerator FlipScreen(int direction = 1)
         {
+            Debug.Log("Flipping Screen, dir = " + direction + ", _sUD: " + _screenUpsideDown);
+            if ((_screenUpsideDown && direction == 1)
+                || (!_screenUpsideDown && direction == -1))
+            {
+                yield break;
+            }
             Vector3 start = new Vector3(0, 0, 0);
             Vector3 end = new Vector3(0, 0, 180);
+
+            Debug.Log("(Past the guard clause)");
 
             for (float time = 0; time < screenRotationTime; time += Time.deltaTime)
             {
@@ -198,25 +216,39 @@ namespace Minigames.FlyingHazard.Scripts
                 yield return null;
             }
             
+            _screenUpsideDown = !_screenUpsideDown;
+
             // Direction == 1 means rotating clockwise; -1 is counterclockwise.
             // If direction is 1, we rotate it back after powerupDuration seconds. 
             if (direction == 1)
             {
                 // Directly set it to <upside down>, in case the anim overshot it.
                 _mainCamera.transform.rotation = new Quaternion(0, 0, 1, 0);
-                
-                powerupSecondsLeft = powerupDuration;
-            
-                yield return new WaitForSeconds(powerupDuration);
-                
-                // Rotates it back the right way
-                StartCoroutine(MushroomFlip(-1));
-            }
-            else
+            } else if (direction == -1)
             {
                 // Directly set it to <upside down>, in case the anim overshot it.
                 _mainCamera.transform.rotation = new Quaternion(0, 0, 0, 1);
             }
+        }
+
+        IEnumerator MushroomFlip()
+        {
+            Debug.Log("Mushroom Flip");
+            yield return FlipScreen(1);
+            Debug.Log("Mushroom Flip 2");
+            
+            powerupSecondsLeft = powerupDuration + screenRotationTime;
+            int prevLives = lives;
+        
+            yield return new WaitForSeconds(powerupDuration);
+
+            if (lives < prevLives)
+            {
+                yield break;
+            }
+            
+            // Rotates it back the right way
+            StartCoroutine(FlipScreen(-1));
         }
         IEnumerator SwapWarp()
         {

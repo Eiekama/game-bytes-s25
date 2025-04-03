@@ -20,7 +20,7 @@ namespace Minigames.FlyingHazard.Scripts
         public const float MAX_MAGNET_DISTANCE = 9999f;
         public const float FRICTION = 0.75f;
         public const float MAGNET_STRENGTH = 100f;
-        public const float MAX_SPEED = 5f;
+        public const float MAX_SPEED = 3f;
 
         void Start()
         {
