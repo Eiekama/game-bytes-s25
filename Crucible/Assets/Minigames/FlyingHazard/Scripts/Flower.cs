@@ -34,14 +34,17 @@ public class Flower : MonoBehaviour
                 flowerAnim.SetTrigger("Spit2");
             }   
             yield return new WaitForSeconds(0.3f);
-            GameObject clone1 = Instantiate(projectile, (Vector2)transform.position + new Vector2(0, 0.4f), Quaternion.identity);
-            GameObject clone2 = Instantiate(projectile, (Vector2)transform.position + new Vector2(0.1f, 0.3f), Quaternion.identity);
+            GameObject clone1 = Instantiate(projectile, (Vector2)transform.position + new Vector2(0.1f, 0.3f), Quaternion.identity);
+            GameObject clone2 = Instantiate(projectile, (Vector2)transform.position + new Vector2(0, 0.4f), Quaternion.identity);
             GameObject clone3 = Instantiate(projectile, (Vector2)transform.position + new Vector2(-0.1f, 0.3f), Quaternion.identity);
-            clone1.GetComponent<ProjectileScript>().changeDirection(new Vector2(0,1));
+            clone1.GetComponent<ProjectileScript>().changeDirection(new Vector2(1,0));
+            clone1.transform.Rotate(0,0,45f);
             clone1.AddComponent<Destroyer>();
-            clone2.GetComponent<ProjectileScript>().changeDirection(new Vector2(1,1));
+            clone2.GetComponent<ProjectileScript>().changeDirection(new Vector2(1,0));
+            clone2.transform.Rotate(0,0,90f);
             clone2.AddComponent<Destroyer>();
-            clone3.GetComponent<ProjectileScript>().changeDirection(new Vector2(-1,1));
+            clone3.GetComponent<ProjectileScript>().changeDirection(new Vector2(1,0));
+            clone3.transform.Rotate(0,0,135f);
             clone3.AddComponent<Destroyer>();
             yield return new WaitForSeconds(1.5f);
         }

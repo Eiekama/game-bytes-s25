@@ -32,7 +32,8 @@ public class Spitter : MonoBehaviour
             spitAnim.SetTrigger("Spit");
             yield return new WaitForSeconds(0.3f);
             GameObject clone = Instantiate(projectile, (Vector2)transform.position + new Vector2(0, 0.4f), Quaternion.identity);
-            clone.GetComponent<ProjectileScript>().changeDirection(new Vector2(0,1));
+            clone.GetComponent<ProjectileScript>().changeDirection(new Vector2(1,0));
+            clone.transform.rotation *= Quaternion.AngleAxis(90, Vector3.forward);
             clone.AddComponent<Destroyer>();
             yield return new WaitForSeconds(0.7f);
         }

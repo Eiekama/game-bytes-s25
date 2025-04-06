@@ -302,6 +302,7 @@ namespace Minigames.FlyingHazard.Scripts
         IEnumerator Bread(GameObject spawn)
         {
             AddScore(10);
+            bs.jumps_Powerups[7].Play();
             yield return new WaitForSeconds(spawning.breadint);
             Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
         }
