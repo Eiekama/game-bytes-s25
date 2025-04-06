@@ -142,6 +142,7 @@ namespace Minigames.FlyingHazard.Scripts
             currentPowerup = PowerupType.None;
             bs.getAnim().SetBool("Death", true);
             bs.dead = true;
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
             //This first canDie check is to make sure lives get updated before the other functions
             if (lives > 0) {
                 StartCoroutine(respawnBird());
@@ -360,6 +361,13 @@ namespace Minigames.FlyingHazard.Scripts
             bs.dead = false;
             gameObject.GetComponent<CircleCollider2D>().enabled = true;
             StartCoroutine(Invincible(invincibilityTime));
+            for (int i = 0; i < 5; i++)
+            {
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.black;
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }
         }
 
         public int getLives(){

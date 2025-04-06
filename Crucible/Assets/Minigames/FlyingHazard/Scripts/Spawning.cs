@@ -93,8 +93,10 @@ public class Spawning : MonoBehaviour
         clone.GetComponent<CircleCollider2D>().enabled = false;
         clone.AddComponent<Destroyer>();
         StartCoroutine(flickerSpawn(clone));
-        if (interval < 0.8f)
+        if (interval < 1f)
             interval += 0.5f;
+        if (interval > 5f)
+            interval -= 0.5f;
         StartCoroutine(spawnBalloon(interval + Random.Range(-0.5f, 0.5f), enemy));
         yield return new WaitForSeconds(2);
         clone.GetComponent<ProjectileScript>().enabled = true;
@@ -109,8 +111,10 @@ public class Spawning : MonoBehaviour
         clone.GetComponent<ProjectileScript>().enabled = false;
         clone.GetComponent<CapsuleCollider2D>().enabled = false;
         StartCoroutine(flickerSpawn(clone));   
-        if (interval < 0.8f)
+        if (interval < 1f)
             interval += 0.5f;
+        if (interval > 5f)
+            interval -= 0.5f;
         StartCoroutine(spawnDrop(interval + Random.Range(-0.5f, 0.5f), enemy));
         yield return new WaitForSeconds(2);
         clone.GetComponent<ProjectileScript>().enabled = true;
@@ -134,9 +138,15 @@ public class Spawning : MonoBehaviour
         int a = Random.Range(0, powerups.Length);
         GameObject clone = Instantiate(powerups[a], new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-5f, 5f), 0f), Quaternion.identity);
         StartCoroutine(flickerSpawn(clone));
-        clone.GetComponent<CircleCollider2D>().enabled = false;
+        if (clone.GetComponent<CircleCollider2D>() != null)
+            clone.GetComponent<CircleCollider2D>().enabled = false;
+        if (clone.GetComponent<CapsuleCollider2D>() != null)
+            clone.GetComponent<CapsuleCollider2D>().enabled = false;
         yield return new WaitForSeconds(2);
-        clone.GetComponent<CircleCollider2D>().enabled = true;
+        if (clone.GetComponent<CircleCollider2D>() != null)
+            clone.GetComponent<CircleCollider2D>().enabled = true;
+        if (clone.GetComponent<CapsuleCollider2D>() != null)
+            clone.GetComponent<CapsuleCollider2D>().enabled = true;
         if (clone.GetComponent<PlayerMagnet>() != null)
         {
             clone.GetComponent<PlayerMagnet>().enabled = true;
