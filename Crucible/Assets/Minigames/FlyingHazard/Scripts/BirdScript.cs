@@ -107,10 +107,10 @@ public class BirdScript : MonoBehaviour
                 rb.gravityScale = gravStorage;
             
         
-            if(rb.position.x > 10 || rb.position.x < -10)
+            if(rb.position.x > 10.5f || rb.position.x < -10.5f)
                 transform.Translate((Vector2.right*-1)*(float)rb.position.x*1.95f);
 
-            if(rb.position.y > 5 || rb.position.y < -5)
+            if(rb.position.y > 5.25f || rb.position.y < -5.25f)
                 transform.Translate((Vector2.up*-1)*(float)rb.position.y*1.95f);      
         }      
     }
