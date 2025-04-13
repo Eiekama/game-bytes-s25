@@ -389,7 +389,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.1, y: 0.16}
+  m_Size: {x: 0.085, y: 0.136}
   m_Direction: 0
 --- !u!114 &81325087
 MonoBehaviour:
@@ -940,8 +940,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.08}
-  m_Size: {x: 0.16, y: 0.16}
+  m_Offset: {x: 0, y: -0.06397539}
+  m_Size: {x: 0.16, y: 0.19204922}
   m_Direction: 0
 --- !u!95 &392573857
 Animator:
@@ -1874,7 +1874,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.1, y: 0.16}
+  m_Size: {x: 0.085, y: 0.136}
   m_Direction: 0
 --- !u!1 &795860114
 GameObject:
@@ -2144,7 +2144,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.09}
   serializedVersion: 2
-  m_Radius: 0.11172498
+  m_Radius: 0.112
 --- !u!1 &825695846
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,8 +2425,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.32, y: 0.61}
+  m_Offset: {x: 0, y: -0.01875642}
+  m_Size: {x: 0.248695, y: 0.5115877}
   m_Direction: 0
 --- !u!114 &1100103113
 MonoBehaviour:
@@ -2658,9 +2658,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.32, y: 0.16}
-  m_Direction: 0
+  m_Offset: {x: 1.4344317e-20, y: -0.00000033689577}
+  m_Size: {x: 0.3199993, y: 0.21086857}
+  m_Direction: 1
 --- !u!114 &1113410676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2871,9 +2871,9 @@ MonoBehaviour:
   - {fileID: 2098200082}
   - {fileID: 1074087443}
   - {fileID: 1508062385}
-  - {fileID: 1506617944}
   - {fileID: 1134888383}
   - {fileID: 795860114}
+  - {fileID: 1506617944}
 --- !u!4 &1137564208
 Transform:
   m_ObjectHideFlags: 0
@@ -3068,6 +3068,7 @@ MonoBehaviour:
   powerupDuration: 10
   screenRotationTime: 0.25
   livesDisplay: {fileID: 1290093770}
+  lives: 5
   canDie: 1
   Score: 0
 --- !u!82 &1179703085
@@ -4411,8 +4412,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.24, y: 0.29}
+  m_Offset: {x: 0, y: -0.00503923}
+  m_Size: {x: 0.24, y: 0.26984307}
   m_Direction: 0
 --- !u!1 &1431201000
 GameObject:
@@ -4844,7 +4845,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.1, y: 0.16}
+  m_Size: {x: 0.085, y: 0.136}
   m_Direction: 0
 --- !u!114 &1552361986
 MonoBehaviour:
@@ -5165,7 +5166,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.19, y: 0.18}
+  m_Size: {x: 0.16518569, y: 0.16518569}
   m_Direction: 0
 --- !u!114 &1620273621
 MonoBehaviour:
@@ -5289,6 +5290,7 @@ MonoBehaviour:
   powerupDuration: 10
   screenRotationTime: 0.25
   livesDisplay: {fileID: 744147147}
+  lives: 3
   canDie: 1
   Score: 0
 --- !u!95 &1650482992
@@ -6424,8 +6426,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.35, y: 0.3}
+  m_Offset: {x: 0, y: 0.012156534}
+  m_Size: {x: 0.2689257, y: 0.29323873}
   m_Direction: 0
 --- !u!114 &1967268058
 MonoBehaviour:
