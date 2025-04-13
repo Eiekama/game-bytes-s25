@@ -44,6 +44,7 @@ namespace Minigames.FlyingHazard.Scripts
             bs = GetComponent<BirdScript>();
             _collider = GetComponent<CircleCollider2D>();
             livesDisplay.text = "" + lives;
+            StartCoroutine(StopSpawnCamping());
         }
 
         private void Update()
@@ -59,6 +60,17 @@ namespace Minigames.FlyingHazard.Scripts
             else
             {
                 powerupSecondsLeft = 0.0f;
+            }
+        }
+
+        // If the player hasn't moved after 10s, spawns a balloon under them.
+        private IEnumerator StopSpawnCamping()
+        {
+            int startingLives = lives;
+            yield return new WaitForSeconds(10);
+            if (lives == startingLives && bs.direction == Direction.Neutral)
+            {
+                StartCoroutine(spawning.spawnSingleBalloon(transform.position.x));
             }
         }
         
@@ -151,7 +163,7 @@ namespace Minigames.FlyingHazard.Scripts
                 StartCoroutine(respawnBird());
             }
 
-            if (_screenUpsideDown)
+            if (_screenUpsideDown && currentPowerup == PowerupType.MushroomFlip)
             {
                 Debug.Log("Flipping Screen Back");
                 StartCoroutine(FlipScreen(-1));
@@ -372,6 +384,8 @@ namespace Minigames.FlyingHazard.Scripts
                 yield return new WaitForSeconds(0.2f);
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             }
+            
+            StartCoroutine(spawning.spawnSingleBalloon(transform.position.x));
         }
 
         public int getLives(){
