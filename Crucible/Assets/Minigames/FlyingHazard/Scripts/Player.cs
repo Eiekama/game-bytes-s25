@@ -16,6 +16,7 @@ namespace Minigames.FlyingHazard.Scripts
         BirdScript bs;
         [SerializeField] private Spawning spawning;
         private Camera _mainCamera;
+        private CircleCollider2D _collider;
         
         [SerializeField] private PowerupType currentPowerup = PowerupType.None;
         // Time before they lose the powerup.
@@ -30,7 +31,7 @@ namespace Minigames.FlyingHazard.Scripts
         private static bool _screenUpsideDown = false;
 
         [SerializeField] private TMP_Text livesDisplay;
-        private int lives = 3;
+        [SerializeField] private int lives = 3;
         // Seconds the bird is invincible after using a OneUp. 
         private const float invincibilityTime = 2f;
         [SerializeField] bool canDie;
@@ -41,6 +42,7 @@ namespace Minigames.FlyingHazard.Scripts
         {
             _mainCamera = Camera.main;
             bs = GetComponent<BirdScript>();
+            _collider = GetComponent<CircleCollider2D>();
             livesDisplay.text = "" + lives;
         }
 
@@ -59,7 +61,6 @@ namespace Minigames.FlyingHazard.Scripts
                 powerupSecondsLeft = 0.0f;
             }
         }
-
         
         private void OnTriggerEnter2D(Collider2D collider)
         {
@@ -136,13 +137,15 @@ namespace Minigames.FlyingHazard.Scripts
 
         private void Die()
         {
-            Debug.Log("Dying");
+            // Debug.Log("Dying");
+            _collider.enabled = false;
             lives--;
             livesDisplay.text = "" + lives;
             currentPowerup = PowerupType.None;
             bs.getAnim().SetBool("Death", true);
             bs.dead = true;
-            gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            bs.DeathEffects();
+            
             //This first canDie check is to make sure lives get updated before the other functions
             if (lives > 0) {
                 StartCoroutine(respawnBird());
@@ -151,7 +154,6 @@ namespace Minigames.FlyingHazard.Scripts
             if (_screenUpsideDown)
             {
                 Debug.Log("Flipping Screen Back");
-                // TODO: Check if all these flipscreen-related changes work.
                 StartCoroutine(FlipScreen(-1));
             }
         }
@@ -293,6 +295,7 @@ namespace Minigames.FlyingHazard.Scripts
         }
 
         // TODO: Check if this is ever called.
+        // It isn't in our code^. (Is OnDestroy a built-in unity fn though?)
         private void OnDestroy()
         {
             Debug.Log(name + " Destroyed");
@@ -313,7 +316,7 @@ namespace Minigames.FlyingHazard.Scripts
 
         void AddScore(int score)
         {
-            int playerNum = GetComponent<BirdScript>().player;
+            int playerNum = bs.player;
             if (currentPowerup == PowerupType.LimeBoost)
             {
                 score *= Powerup.LIMEBOOSTMULT;

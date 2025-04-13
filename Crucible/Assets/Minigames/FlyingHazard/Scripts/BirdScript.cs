@@ -85,13 +85,20 @@ public class BirdScript : MonoBehaviour
 
             
         } else {
-            rb.gravityScale = 0.0f;
-            if (rb.velocity.x != 0.0f){
-                gameObject.GetComponent<CircleCollider2D>().enabled = false;
-                rb.velocity = new Vector2(0.0f, 0.0f);
-                StartCoroutine(deathPause());
-            }
+            // DeathEffects();
         }
+    }
+
+    public void DeathEffects()
+    {
+        rb.gravityScale = 0.0f;
+        // if (rb.velocity.x != 0.0f){
+        // TODO: Next line s/b unnecessary:
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        rb.velocity = new Vector2(0.0f, 0.0f);
+        StartCoroutine(deathPause());
+        // }
+        Debug.Log("Bird is dead");
     }
 
     private void FixedUpdate()
