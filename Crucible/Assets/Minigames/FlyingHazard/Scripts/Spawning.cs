@@ -67,7 +67,7 @@ public class Spawning : MonoBehaviour
                 new Vector3(UnityEngine.Random.Range(-9f, 9f),
                     UnityEngine.Random.Range(-4.8f, 4.8f), 0f),
                 Quaternion.identity);
-            StartCoroutine(spawnBalloon(inter1, spikeBalloonEnemy));
+            StartCoroutine(spawnBalloon(inter1));
             StartCoroutine(spawnDrop(inter2, dropEnemy));
             StartCoroutine(spawnRice(riceint));
             StartCoroutine(munchSpawnTest(muncherint, muncher));
@@ -92,7 +92,9 @@ public class Spawning : MonoBehaviour
 
     // Note: If these spawn functions are only ever called on this specific enemy,
     // can remove the second parameter & reference it directly. 
-    private IEnumerator spawnBalloon(float interval, GameObject enemy){
+    private IEnumerator spawnBalloon(float interval)
+    {
+        GameObject enemy = spikeBalloonEnemy;
         GameObject clone;
         float timeScaling = (((MinigameController.Instance.GetElapsedTime())/180f)*Scaling)+1;
         yield return new WaitForSeconds(interval/timeScaling);
@@ -105,7 +107,22 @@ public class Spawning : MonoBehaviour
             interval += (0.5f*timeScaling/2f);
         if (interval > 5f)
             interval -= (0.5f*timeScaling/2f);
-        StartCoroutine(spawnBalloon(interval + Random.Range(-0.5f, 0.5f), enemy));
+        StartCoroutine(spawnBalloon(interval + Random.Range(-0.5f, 0.5f)));
+        yield return new WaitForSeconds(2);
+        clone.GetComponent<ProjectileScript>().enabled = true;
+        clone.GetComponent<CircleCollider2D>().enabled = true;
+    }
+    // Code mostly copied from above^:
+    public IEnumerator spawnSingleBalloon(float x)
+    {
+        GameObject enemy = spikeBalloonEnemy;
+        GameObject clone = Instantiate(enemy,
+            new Vector3(x, -5f, 0f),
+            Quaternion.identity);
+        clone.GetComponent<ProjectileScript>().enabled = false;
+        clone.GetComponent<CircleCollider2D>().enabled = false;
+        clone.AddComponent<Destroyer>();
+        StartCoroutine(flickerSpawn(clone));
         yield return new WaitForSeconds(2);
         clone.GetComponent<ProjectileScript>().enabled = true;
         clone.GetComponent<CircleCollider2D>().enabled = true;
@@ -143,7 +160,7 @@ public class Spawning : MonoBehaviour
     private IEnumerator spawnPowerup(float interval){
         powerupCount++;
         yield return new WaitForSeconds(interval);
-        GameObject clone = RandomPowerup();
+        GameObject clone = CloneRandomPowerup();
         StartCoroutine(flickerSpawn(clone));
         if (clone.GetComponent<CircleCollider2D>() != null)
             clone.GetComponent<CircleCollider2D>().enabled = false;
@@ -160,7 +177,7 @@ public class Spawning : MonoBehaviour
         }
     }
 
-    private GameObject RandomPowerup()
+    private GameObject CloneRandomPowerup()
     {
         int len = powerups.Length;
         if (bird1.GetComponent<Player>().getLives() == 0
