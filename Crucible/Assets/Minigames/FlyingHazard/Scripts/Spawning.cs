@@ -53,6 +53,7 @@ public class Spawning : MonoBehaviour
     private int powerupCount = 0;
 
     [SerializeField] private int powerupMax;
+    // NOTE: SWAP WARP MUST BE LAST (See RandomPowerup.)
     public GameObject[] powerups;
     // Start is called before the first frame update
     void Start()
@@ -142,8 +143,7 @@ public class Spawning : MonoBehaviour
     private IEnumerator spawnPowerup(float interval){
         powerupCount++;
         yield return new WaitForSeconds(interval);
-        int a = Random.Range(0, powerups.Length);
-        GameObject clone = Instantiate(powerups[a], new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-4.7f, 4.7f), 0f), Quaternion.identity);
+        GameObject clone = RandomPowerup();
         StartCoroutine(flickerSpawn(clone));
         if (clone.GetComponent<CircleCollider2D>() != null)
             clone.GetComponent<CircleCollider2D>().enabled = false;
@@ -158,6 +158,21 @@ public class Spawning : MonoBehaviour
         {
             clone.GetComponent<PlayerMagnet>().enabled = true;
         }
+    }
+
+    private GameObject RandomPowerup()
+    {
+        int len = powerups.Length;
+        if (bird1.GetComponent<Player>().getLives() == 0
+            || bird2.GetComponent<Player>().getLives() == 0)
+        {
+            len--;
+        }
+        
+        int a = Random.Range(0, len);
+        return Instantiate(powerups[a],
+            new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-4.7f, 4.7f), 0f),
+            Quaternion.identity);
     }
 
     private IEnumerator munchSpawnTest(float interval, GameObject enemy){
