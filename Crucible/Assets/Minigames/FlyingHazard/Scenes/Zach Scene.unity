@@ -2868,11 +2868,6 @@ MonoBehaviour:
   powerupMax: 1
   powerups:
   - {fileID: 1600850652}
-  - {fileID: 2098200082}
-  - {fileID: 1074087443}
-  - {fileID: 1508062385}
-  - {fileID: 1134888383}
-  - {fileID: 795860114}
   - {fileID: 1506617944}
 --- !u!4 &1137564208
 Transform:
@@ -3068,7 +3063,7 @@ MonoBehaviour:
   powerupDuration: 10
   screenRotationTime: 0.25
   livesDisplay: {fileID: 1290093770}
-  lives: 5
+  lives: 3
   canDie: 1
   Score: 0
 --- !u!82 &1179703085
