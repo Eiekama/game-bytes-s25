@@ -63,7 +63,7 @@ namespace Minigames.FlyingHazard.Scripts
             }
         }
 
-        // If the player hasn't moved after 10s, spawns a balloon under them.
+        // If the player hasn't moved (or died) after 10s, spawns a balloon under them.
         private IEnumerator StopSpawnCamping()
         {
             int startingLives = lives;
@@ -153,7 +153,6 @@ namespace Minigames.FlyingHazard.Scripts
             _collider.enabled = false;
             lives--;
             livesDisplay.text = "" + lives;
-            currentPowerup = PowerupType.None;
             bs.getAnim().SetBool("Death", true);
             bs.dead = true;
             bs.DeathEffects();
@@ -168,6 +167,7 @@ namespace Minigames.FlyingHazard.Scripts
                 Debug.Log("Flipping Screen Back");
                 StartCoroutine(FlipScreen(-1));
             }
+            currentPowerup = PowerupType.None;
         }
         
         IEnumerator EnergyShield()
