@@ -2868,6 +2868,11 @@ MonoBehaviour:
   powerupMax: 1
   powerups:
   - {fileID: 1600850652}
+  - {fileID: 795860114}
+  - {fileID: 2098200082}
+  - {fileID: 1074087443}
+  - {fileID: 1508062385}
+  - {fileID: 1134888383}
   - {fileID: 1506617944}
 --- !u!4 &1137564208
 Transform:
