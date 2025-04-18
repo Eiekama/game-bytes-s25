@@ -113,11 +113,13 @@ public class BirdScript : MonoBehaviour
             if (rb.velocity.y >= 6.0f)
                 rb.gravityScale = gravStorage;
             
+            const float WIDTH = Spawning.WIDTH;
+            const float HEIGHT = Spawning.HEIGHT;
         
-            if(rb.position.x > 10.5f || rb.position.x < -10.5f)
+            if(rb.position.x > WIDTH || rb.position.x < -WIDTH)
                 transform.Translate((Vector2.right*-1)*(float)rb.position.x*1.95f);
 
-            if(rb.position.y > 5.25f || rb.position.y < -5.25f)
+            if(rb.position.y > HEIGHT * 1.05f || rb.position.y < -HEIGHT * 1.05f)
                 transform.Translate((Vector2.up*-1)*(float)rb.position.y*1.95f);      
         }      
     }

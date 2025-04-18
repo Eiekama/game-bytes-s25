@@ -267,11 +267,12 @@ public class Spawning : MonoBehaviour
         }
     }
 
-    public IEnumerator seedSpawn(float interval, GameObject enemy, float spawnStart){
+    public IEnumerator seedSpawn(float interval, GameObject enemy, float spawnStart)
+    {
         if (MinigameController.Instance.GetElapsedTime() < spawnStart)
             yield return new WaitForSeconds(spawnStart);
         yield return new WaitForSeconds(interval);
-            GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-(WIDTH - 0.8f), WIDTH + 0.8f), HEIGHT - 0.2f, 0f), Quaternion.identity);
+            GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-(WIDTH - 0.8f), WIDTH - 0.8f), HEIGHT - 0.2f, 0f), Quaternion.identity);
             clone.GetComponent<ProjectileScript>().changeDirection(new Vector2(0,-1));
             clone.GetComponent<ProjectileScript>().enabled = false;
             clone.GetComponent<CapsuleCollider2D>().enabled = false;
