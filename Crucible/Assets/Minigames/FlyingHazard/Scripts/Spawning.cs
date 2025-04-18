@@ -52,6 +52,11 @@ public class Spawning : MonoBehaviour
     public float Scaling;
     private int powerupCount = 0;
 
+    // Screen width & height (Goes from -W to +W and -H to +H).
+    // Technically WIDTH = 0.2f less than the real value.
+    public const float WIDTH = 8.7f;
+    public const float HEIGHT = 5f;
+
     [SerializeField] private int powerupMax;
     // NOTE: SWAP WARP MUST BE LAST (See RandomPowerup.)
     public GameObject[] powerups;
@@ -64,8 +69,8 @@ public class Spawning : MonoBehaviour
         bs2 = bird2.GetComponent<BirdScript>();
         if (enabled){
             Instantiate(bread,
-                new Vector3(UnityEngine.Random.Range(-9f, 9f),
-                    UnityEngine.Random.Range(-4.8f, 4.8f), 0f),
+                new Vector3(UnityEngine.Random.Range(-(WIDTH - 0.8f), (WIDTH - 0.8f)),
+                    UnityEngine.Random.Range(-(HEIGHT - 0.5f), (HEIGHT - 0.5f)), 0f),
                 Quaternion.identity);
             StartCoroutine(spawnBalloon(inter1));
             StartCoroutine(spawnDrop(inter2, dropEnemy));
@@ -98,7 +103,7 @@ public class Spawning : MonoBehaviour
         GameObject clone;
         float timeScaling = (((MinigameController.Instance.GetElapsedTime())/180f)*Scaling)+1;
         yield return new WaitForSeconds(interval/timeScaling);
-        clone = Instantiate(enemy, new Vector3(Random.Range(-9.8f, 9.8f), -5f, 0f), Quaternion.identity);
+        clone = Instantiate(enemy, new Vector3(Random.Range(-WIDTH, WIDTH), -HEIGHT, 0f), Quaternion.identity);
         clone.GetComponent<ProjectileScript>().enabled = false;
         clone.GetComponent<CircleCollider2D>().enabled = false;
         clone.AddComponent<Destroyer>();
@@ -115,9 +120,10 @@ public class Spawning : MonoBehaviour
     // Code mostly copied from above^:
     public IEnumerator spawnSingleBalloon(float x)
     {
+        Debug.Log("Spawning Single Balloon");
         GameObject enemy = spikeBalloonEnemy;
         GameObject clone = Instantiate(enemy,
-            new Vector3(x, -5f, 0f),
+            new Vector3(x, -HEIGHT, 0f),
             Quaternion.identity);
         clone.GetComponent<ProjectileScript>().enabled = false;
         clone.GetComponent<CircleCollider2D>().enabled = false;
@@ -127,11 +133,25 @@ public class Spawning : MonoBehaviour
         clone.GetComponent<ProjectileScript>().enabled = true;
         clone.GetComponent<CircleCollider2D>().enabled = true;
     }
+    public IEnumerator spawnSingleDrop(float x)
+    {
+        Debug.Log("Spawning Single Drop");
+        GameObject enemy = dropEnemy;
+        GameObject clone = Instantiate(enemy, new Vector3(x, HEIGHT, 0f), Quaternion.identity);
+        Debug.Log("Clone: " + clone + "\n(x, y): " + clone.transform.position);
+        clone.AddComponent<Destroyer>();
+        clone.GetComponent<ProjectileScript>().enabled = false;
+        clone.GetComponent<CapsuleCollider2D>().enabled = false;
+        StartCoroutine(flickerSpawn(clone));
+        yield return new WaitForSeconds(2);
+        clone.GetComponent<ProjectileScript>().enabled = true;
+        clone.GetComponent<CapsuleCollider2D>().enabled = true;
+    }
 
     private IEnumerator spawnDrop(float interval, GameObject enemy){
         float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
         yield return new WaitForSeconds(interval/timeScaling);
-        GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9.8f, 9.8f), 5f, 0f), Quaternion.identity);
+        GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-WIDTH, WIDTH), HEIGHT, 0f), Quaternion.identity);
         clone.AddComponent<Destroyer>();
         clone.GetComponent<ProjectileScript>().enabled = false;
         clone.GetComponent<CapsuleCollider2D>().enabled = false;
@@ -150,7 +170,7 @@ public class Spawning : MonoBehaviour
         float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
         Debug.Log("Scale:" + timeScaling);
         yield return new WaitForSeconds(interval/timeScaling);
-        GameObject clone = Instantiate(rice, new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-4.7f, 4.7f), 0f), Quaternion.identity);
+        GameObject clone = Instantiate(rice, new Vector3(Random.Range(-(WIDTH - 0.3f), WIDTH - 0.3f), Random.Range(-(HEIGHT - 0.3f), HEIGHT - 0.3f), 0f), Quaternion.identity);
         //StartCoroutine(flickerSpawn(clone));
         //clone.GetComponent<CapsuleCollider2D>.enabled = false;
         StartCoroutine(spawnRice(interval));
@@ -188,7 +208,7 @@ public class Spawning : MonoBehaviour
         
         int a = Random.Range(0, len);
         return Instantiate(powerups[a],
-            new Vector3(Random.Range(-9.5f, 9.5f), Random.Range(-4.7f, 4.7f), 0f),
+            new Vector3(Random.Range(-(WIDTH - 0.3f), WIDTH - 0.3f), Random.Range(-(HEIGHT - 0.3f), HEIGHT - 0.3f), 0f),
             Quaternion.identity);
     }
 
@@ -203,7 +223,7 @@ public class Spawning : MonoBehaviour
             interval += 1f; // Hardcapping interval so not too many spawn
         StartCoroutine(munchSpawnTest(muncherint + Random.Range(-2f, 2f), muncher)); //Starts another muncher spawn
         if (Random.Range(0.0f, 1.0f) < 0.5){ //The random chooses which side spawns
-            clone = Instantiate(enemy, new Vector3(-10f, Random.Range(-5f, 5f), 0f), Quaternion.identity);
+            clone = Instantiate(enemy, new Vector3(-(WIDTH + 0.2f), Random.Range(-HEIGHT, HEIGHT), 0f), Quaternion.identity);
             clone.AddComponent<Destroyer>();
             StartCoroutine(flickerSpawn(clone)); 
             clone.GetComponent<ProjectileScript>().enabled = false;            
@@ -223,7 +243,7 @@ public class Spawning : MonoBehaviour
                 clone.transform.rotation = Quaternion.Euler(0.0f, 0.0f, a); //Targetting bird2 with angle a found from bird2
             }
         } else if (!bs2.dead){
-            clone = Instantiate(enemy, new Vector3(10f, Random.Range(-5f, 5f), 0f), Quaternion.identity);
+            clone = Instantiate(enemy, new Vector3(WIDTH + 0.2f, Random.Range(-HEIGHT, HEIGHT), 0f), Quaternion.identity);
             clone.GetComponent<SpriteRenderer>().flipX = true; //Flipping the flickering sprite to face left
             clone.AddComponent<Destroyer>();
             StartCoroutine(flickerSpawn(clone));
@@ -251,7 +271,7 @@ public class Spawning : MonoBehaviour
         if (MinigameController.Instance.GetElapsedTime() < spawnStart)
             yield return new WaitForSeconds(spawnStart);
         yield return new WaitForSeconds(interval);
-            GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-9f, 9f), 4.8f, 0f), Quaternion.identity);
+            GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-(WIDTH - 0.8f), WIDTH + 0.8f), HEIGHT - 0.2f, 0f), Quaternion.identity);
             clone.GetComponent<ProjectileScript>().changeDirection(new Vector2(0,-1));
             clone.GetComponent<ProjectileScript>().enabled = false;
             clone.GetComponent<CapsuleCollider2D>().enabled = false;
@@ -268,7 +288,7 @@ public class Spawning : MonoBehaviour
         if (MinigameController.Instance.GetElapsedTime() < starting)
             yield return new WaitForSeconds(starting);
         yield return new WaitForSeconds(interval);
-        clone = Instantiate(enemy, new Vector3(Random.Range(-9.8f, 9.8f), -5.07f, 0f), Quaternion.identity);
+        clone = Instantiate(enemy, new Vector3(Random.Range(-WIDTH, WIDTH), -(HEIGHT + 0.07f), 0f), Quaternion.identity);
         clone.GetComponent<ProjectileScript>().enabled = false;
         clone.GetComponent<CapsuleCollider2D>().enabled = false;
         clone.AddComponent<Destroyer>();

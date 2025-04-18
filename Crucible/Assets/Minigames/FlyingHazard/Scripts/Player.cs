@@ -71,6 +71,7 @@ namespace Minigames.FlyingHazard.Scripts
             if (lives == startingLives && bs.direction == Direction.Neutral)
             {
                 StartCoroutine(spawning.spawnSingleBalloon(transform.position.x));
+                StartCoroutine(spawning.spawnSingleDrop(transform.position.x));
             }
         }
         
@@ -385,7 +386,9 @@ namespace Minigames.FlyingHazard.Scripts
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             }
             
+            // After i-frames end:
             StartCoroutine(spawning.spawnSingleBalloon(transform.position.x));
+            StartCoroutine(spawning.spawnSingleDrop(transform.position.x));
         }
 
         public int getLives(){
