@@ -22,7 +22,7 @@ public class Flower : MonoBehaviour
         
     }
 
-        private IEnumerator activateFlower(){
+    private IEnumerator activateFlower(){
         flowerAnim.SetTrigger("Spawn");
         yield return new WaitForSeconds(0.5f);
         flowerAnim.SetBool("Spawned", true);
