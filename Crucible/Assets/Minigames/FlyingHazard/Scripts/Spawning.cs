@@ -164,6 +164,8 @@ public class Spawning : MonoBehaviour
 
     private IEnumerator spawnDrop(float interval, GameObject enemy)
     {
+        // interval = 0.01f;
+        
         float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
         yield return new WaitForSeconds(interval/timeScaling);
         GameObject clone = Instantiate(enemy, new Vector3(Random.Range(-(WIDTH - 0.2f), WIDTH - 0.2f), HEIGHT, 0f), Quaternion.identity);
