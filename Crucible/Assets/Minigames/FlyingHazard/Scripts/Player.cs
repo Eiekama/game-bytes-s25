@@ -331,7 +331,9 @@ namespace Minigames.FlyingHazard.Scripts
             AddScore(10);
             bs.jumps_Powerups[7].Play();
             yield return new WaitForSeconds(spawning.breadint);
-            Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-Spawning.WIDTH+0.8f, Spawning.WIDTH-0.8f), UnityEngine.Random.Range(-Spawning.HEIGHT+0.5f, Spawning.HEIGHT-0.5f), 0f), Quaternion.identity);
+            // StartCoroutine(Bread(spawn));
+            // StartCoroutine(Bread(spawn));
+            Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-Spawning.WIDTH+0.8f, Spawning.WIDTH-0.8f), UnityEngine.Random.Range(-Spawning.HEIGHT+1f, Spawning.HEIGHT-1f), 0f), Quaternion.identity);
         }
         void Rice()
         {
