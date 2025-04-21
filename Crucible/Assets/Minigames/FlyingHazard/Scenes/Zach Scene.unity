@@ -2947,6 +2947,7 @@ MonoBehaviour:
   balloonPlantInt: 15
   balloonPlantStart: 45
   Scaling: 3
+  warmupTime: 5
   powerupMax: 1
   powerups:
   - {fileID: 1508062385}

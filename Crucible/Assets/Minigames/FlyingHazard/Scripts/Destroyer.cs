@@ -13,8 +13,11 @@ public class Destroyer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x > 15 || transform.position.x < -15 
-            || transform.position.y > 6 || transform.position.y < -6)
+        const float WIDTH = Spawning.WIDTH;
+        const float HEIGHT = Spawning.HEIGHT;
+        
+        if (transform.position.x > (WIDTH + 5f) || transform.position.x < -(WIDTH + 5f)
+            || transform.position.y > (HEIGHT + 1f) || transform.position.y < -(HEIGHT + 1f))
             Destroy(gameObject);
     }
 }
