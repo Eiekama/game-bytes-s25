@@ -64,13 +64,18 @@ public class BirdScript : MonoBehaviour
                 jumps_Powerups[UnityEngine.Random.Range(0,3)].Play();
             }
 
-            if(Input.GetKeyDown(left)){
+            if(Input.GetKeyDown(left)
+            || Input.GetKeyUp(right) && Input.GetKey(left)){
+                // Go left:
                 sprite.flipX = true;
                 direction = Direction.Left;
-            } else if(Input.GetKeyDown(right)) {
+            } else if(Input.GetKeyDown(right) 
+                   || Input.GetKeyUp(left) && Input.GetKey(right)) {
+                // Go right:
                 sprite.flipX = false;
                 direction = Direction.Right;
             }
+            
             if(direction == Direction.Left) {
                 //transform.Translate(Vector2.left * (Time.fixedDeltaTime * moveSpeed));
                 float xVelocity = rb.velocity.x - TRACTION;

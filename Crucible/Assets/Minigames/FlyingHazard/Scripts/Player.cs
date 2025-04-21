@@ -213,6 +213,15 @@ namespace Minigames.FlyingHazard.Scripts
             Time.timeScale = 1;
         }
 
+        // Doesn't work:
+        // private static Vector3 V3SmoothStep(Vector3 start, Vector3 end, float t)
+        // {
+        //     float smoothX = Mathf.SmoothStep(start.x, end.x, t);
+        //     float smoothY = Mathf.SmoothStep(start.y, end.y, t);
+        //     float smoothZ = Mathf.SmoothStep(start.z, end.z, t);
+        //     return new Vector3(smoothX, smoothY, smoothZ);
+        // }
+
         IEnumerator FlipScreen(int direction = 1)
         {
             Debug.Log("Flipping Screen, dir = " + direction + ", _sUD: " + _screenUpsideDown);
@@ -224,7 +233,7 @@ namespace Minigames.FlyingHazard.Scripts
             Vector3 start = new Vector3(0, 0, 0);
             Vector3 end = new Vector3(0, 0, 180);
 
-            Debug.Log("(Past the guard clause)");
+            // Debug.Log("(Past the guard clause)");
 
             for (float time = 0; time < screenRotationTime; time += Time.deltaTime)
             {
