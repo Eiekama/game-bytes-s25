@@ -89,6 +89,17 @@ public class BirdScript : MonoBehaviour
         }
     }
 
+    public void ResetDirection()
+    {
+        if(Input.GetKey(left)){
+            sprite.flipX = true;
+            direction = Direction.Left;
+        } else if(Input.GetKey(right)) {
+            sprite.flipX = false;
+            direction = Direction.Right;
+        }
+    }
+
     public void DeathEffects()
     {
         rb.gravityScale = 0.0f;

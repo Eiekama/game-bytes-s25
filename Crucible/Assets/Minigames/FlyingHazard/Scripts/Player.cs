@@ -377,6 +377,10 @@ namespace Minigames.FlyingHazard.Scripts
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 4.0f;
             bs.dead = false;
             gameObject.GetComponent<CircleCollider2D>().enabled = true;
+
+            bs.ResetDirection();
+            
+            // I-Frames
             StartCoroutine(Invincible(invincibilityTime));
             for (int i = 0; i < 5; i++)
             {

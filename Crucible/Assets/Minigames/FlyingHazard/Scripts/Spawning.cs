@@ -183,6 +183,7 @@ public class Spawning : MonoBehaviour
 
     private IEnumerator spawnRice(float interval)
     {
+        // interval = 0.01f;
         float timeScaling = ((((MinigameController.Instance.GetElapsedTime()+180f)/180f)-1)*Scaling)+1;
         Debug.Log("Scale:" + timeScaling);
         yield return new WaitForSeconds(interval/timeScaling);
