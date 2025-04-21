@@ -331,7 +331,7 @@ public class Spawning : MonoBehaviour
     public IEnumerator flickerSpawn(GameObject thing)
     {
         SpriteRenderer a = thing.GetComponent<SpriteRenderer>();
-        int numFlickers = 5;
+        int numFlickers = 8;
         for (int i = 0; i < numFlickers; i++){
             yield return new WaitForSeconds(1f / numFlickers);
             a.color = Color.black;
