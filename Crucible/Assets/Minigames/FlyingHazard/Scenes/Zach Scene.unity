@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 81325086}
   m_Layer: 0
   m_Name: Bullet Seed
-  m_TagString: Danger
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1920,7 +1920,7 @@ GameObject:
   - component: {fileID: 766746359}
   m_Layer: 0
   m_Name: Spit Seed
-  m_TagString: Danger
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4334,7 +4334,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.08, y: 0.12}
+  m_Size: {x: 0.10321164, y: 0.10321164}
   m_Direction: 0
 --- !u!114 &1181323606
 MonoBehaviour:
@@ -5197,7 +5197,7 @@ GameObject:
   - component: {fileID: 1552361985}
   m_Layer: 0
   m_Name: Vine Seed
-  m_TagString: Danger
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
