@@ -157,6 +157,8 @@ namespace Minigames.FlyingHazard.Scripts
             bs.getAnim().SetBool("Death", true);
             bs.dead = true;
             bs.DeathEffects();
+            StartCoroutine(fallSound());
+
             
             //This first canDie check is to make sure lives get updated before the other functions
             if (lives > 0) {
@@ -329,10 +331,11 @@ namespace Minigames.FlyingHazard.Scripts
             AddScore(10);
             bs.jumps_Powerups[7].Play();
             yield return new WaitForSeconds(spawning.breadint);
-            Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-9f, 9f), UnityEngine.Random.Range(-4.8f, 4.8f), 0f), Quaternion.identity);
+            Instantiate(spawn, new Vector3(UnityEngine.Random.Range(-Spawning.WIDTH+0.8f, Spawning.WIDTH-0.8f), UnityEngine.Random.Range(-Spawning.HEIGHT+0.5f, Spawning.HEIGHT-0.5f), 0f), Quaternion.identity);
         }
         void Rice()
         {
+            bs.jumps_Powerups[8].Play();
             AddScore(1);
         }
 
@@ -406,6 +409,11 @@ namespace Minigames.FlyingHazard.Scripts
 
         public int getLives(){
             return lives;
+        }
+
+        IEnumerator fallSound(){
+            yield return new WaitForSeconds(1);
+            bs.jumps_Powerups[9].Play();
         }
     }
 }
