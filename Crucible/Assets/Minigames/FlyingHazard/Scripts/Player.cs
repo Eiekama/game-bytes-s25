@@ -36,6 +36,9 @@ namespace Minigames.FlyingHazard.Scripts
         private const float invincibilityTime = 2f;
         [SerializeField] bool canDie;
         
+        public GameObject musicbox;
+
+        AudioSource music;
         public int Score = 0;
 
         private void Start()
@@ -45,6 +48,7 @@ namespace Minigames.FlyingHazard.Scripts
             _collider = GetComponent<CircleCollider2D>();
             livesDisplay.text = "" + lives;
             StartCoroutine(StopSpawnCamping());
+            music = musicbox.GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -152,13 +156,18 @@ namespace Minigames.FlyingHazard.Scripts
         {
             // Debug.Log("Dying");
             _collider.enabled = false;
-            lives--;
-            livesDisplay.text = "" + lives;
+            if (lives > 0){
+                lives--;
+                livesDisplay.text = "" + lives;
+            }
             bs.getAnim().SetBool("Death", true);
             bs.dead = true;
             bs.DeathEffects();
+            bs.jumps_Powerups[10].Play();
             StartCoroutine(fallSound());
-
+            if (music.pitch != 1 && currentPowerup == PowerupType.Stopwatch){
+                music.pitch = 1;
+            }
             
             //This first canDie check is to make sure lives get updated before the other functions
             if (lives > 0) {
@@ -205,6 +214,8 @@ namespace Minigames.FlyingHazard.Scripts
             // TODO: Make this not have a visible reduction in framerate? (i.e. just slow things down manually pbly.)
             float slowAmt = 0.5f;
             
+            music.pitch = 0.5f;
+
             Time.timeScale = slowAmt;
             
             // E.g. only do it for 5 seconds (instead of 10) with slowAmt = 0.5f.
@@ -212,6 +223,8 @@ namespace Minigames.FlyingHazard.Scripts
             
             yield return new WaitForSecondsRealtime(powerupDuration);
             
+            music.pitch = 1;
+
             Time.timeScale = 1;
         }
 
