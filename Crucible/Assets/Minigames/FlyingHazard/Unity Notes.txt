@@ -1,0 +1,20 @@
+
+   Controls notes:
+   Input.getAxis("") or Input.getButton("") or bool Input.getKey(key)
+   Or getKeyDown(key) / getKeyUp(key) for the exact frames
+   Edit->Project Settings->Input Manager to see the axis names
+
+   To add a force (e.g. when jumping:)
+   Rigidbody rb = GetComponent<Rigidbody2D>();
+   rb.AddForce(Vector2.up * 10f, ForceMode.Impulse);
+
+   Collisions note:
+   Need a rigidbody on one of the elements for the collision to work
+
+   Coroutines notes:
+   StartCoroutine(routine());, where `IEnumerator routine(){ ... }`
+   yield return null; // pause execution until the next frame
+   yield return new WaitForSeconds(int)
+   yield return new WaitUntil(predicate)
+   yield return routine2()
+   Make sure to include a yield return in a routine's loop (infinite loops bad)
