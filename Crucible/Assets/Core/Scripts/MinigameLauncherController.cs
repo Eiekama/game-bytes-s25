@@ -25,9 +25,17 @@ public class MinigameLauncherController : UnitySingleton<MinigameLauncherControl
     [SerializeField] private TextMeshProUGUI P1JoystickText = null;
     [SerializeField] private TextMeshProUGUI P1Button1Text = null;
     [SerializeField] private TextMeshProUGUI P1Button2Text = null;
+    [SerializeField] private TextMeshProUGUI P1Button3Text = null;
+    [SerializeField] private TextMeshProUGUI P1Button4Text = null;
+    [SerializeField] private TextMeshProUGUI P1Button5Text = null;
+    [SerializeField] private TextMeshProUGUI P1Button6Text = null;
     [SerializeField] private TextMeshProUGUI P2JoystickText = null;
     [SerializeField] private TextMeshProUGUI P2Button1Text = null;
     [SerializeField] private TextMeshProUGUI P2Button2Text = null;
+    [SerializeField] private TextMeshProUGUI P2Button3Text = null;
+    [SerializeField] private TextMeshProUGUI P2Button4Text = null;
+    [SerializeField] private TextMeshProUGUI P2Button5Text = null;
+    [SerializeField] private TextMeshProUGUI P2Button6Text = null;
     [SerializeField] private RectTransform QuitTransform = null;
     [SerializeField] private Image MinigameThumbnail  = null;
     [SerializeField] private float CountdownTimerDuration = 3;
@@ -80,6 +88,18 @@ public class MinigameLauncherController : UnitySingleton<MinigameLauncherControl
 
             P1Button2Text.SetText(GameState.Instance.CurrentMinigame.P1_Button2Description);
             P2Button2Text.SetText(GameState.Instance.CurrentMinigame.P2_Button2Description);
+
+            P1Button3Text.SetText(GameState.Instance.CurrentMinigame.P1_Button3Description);
+            P2Button3Text.SetText(GameState.Instance.CurrentMinigame.P2_Button3Description);
+
+            P1Button4Text.SetText(GameState.Instance.CurrentMinigame.P1_Button4Description);
+            P2Button4Text.SetText(GameState.Instance.CurrentMinigame.P2_Button4Description);
+
+            P1Button5Text.SetText(GameState.Instance.CurrentMinigame.P1_Button5Description);
+            P2Button5Text.SetText(GameState.Instance.CurrentMinigame.P2_Button5Description);
+
+            P1Button6Text.SetText(GameState.Instance.CurrentMinigame.P1_Button6Description);
+            P2Button6Text.SetText(GameState.Instance.CurrentMinigame.P2_Button6Description);
 
             if (GameState.Instance.Gamemode == MinigameGamemodeTypes.TWOPLAYERVS)
             {
@@ -149,10 +169,10 @@ public class MinigameLauncherController : UnitySingleton<MinigameLauncherControl
             }
         }
 
-        if (Input.GetButtonDown("P1_ButtonQuit") || Input.GetButtonDown("P2_ButtonQuit"))
-        {
-            SceneTransitionController.Instance.TransitionToScene(settings.StartScene.ScenePath);
-        }
+        // if (Input.GetButtonDown("P1_ButtonQuit") || Input.GetButtonDown("P2_ButtonQuit"))
+        // {
+        //     SceneTransitionController.Instance.TransitionToScene(settings.StartScene.ScenePath);
+        // }
 
         if (P1Ready && P2Ready)
         {
