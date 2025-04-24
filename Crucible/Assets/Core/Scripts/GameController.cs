@@ -42,6 +42,15 @@ public class GameController : UnitySingleton<GameController>
         }
         else
         {
+            // do nothing if no minigames available
+            bool b = false;
+            foreach (var minigame in Settings.AvailableMinigames)
+            {
+                if (minigame.SupportedGameModes.HasFlag(GameModeSelected))
+                    b = true;
+            }
+            if (!b) return;
+
             // Add in minigames from shuffled list until we have enough minigames to play through the whole game
             MinigameInfo[] MinigamesToPlay = new MinigameInfo[MinigamesPerGame];
             MinigameInfo[] ShuffledMinigames = Settings.GetShuffledMinigames();
