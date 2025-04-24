@@ -1708,10 +1708,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54022f6c14c4bc84b903b8c5f2a6698a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Settings: {fileID: 11400000, guid: 54aae246c8e29834bbd5810fe72c6980, type: 2}
-  MinigamesPerGame: 5
+  Settings: {fileID: 11400000, guid: 5e7bc41f28f494c89b19949abba7c50c, type: 2}
+  MinigamesPerGame: 1
   DEBUG_MinigamesToLaunch: []
-  DEBUG_TestGameMode: 2
+  DEBUG_TestGameMode: 6
 --- !u!1 &610036747
 GameObject:
   m_ObjectHideFlags: 0
@@ -4119,7 +4119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af2b7ca9b344bf46a52f10c08fe54ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Settings: {fileID: 11400000, guid: 54aae246c8e29834bbd5810fe72c6980, type: 2}
+  Settings: {fileID: 11400000, guid: 5e7bc41f28f494c89b19949abba7c50c, type: 2}
   RectTransformComponent: {fileID: 0}
 --- !u!1 &1804836283
 GameObject:
