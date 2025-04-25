@@ -249,7 +249,7 @@ public class Spawning : MonoBehaviour
             interval += 1f; // Hardcapping interval so not too many spawn
         StartCoroutine(munchSpawnTest(muncherint + Random.Range(-2f, 2f), muncher)); //Starts another muncher spawn
         if (Random.Range(0.0f, 1.0f) < 0.5){ //The random chooses which side spawns
-            clone = Instantiate(enemy, new Vector3(-(WIDTH + 0.25f), Random.Range(-(HEIGHT - 0.3f), HEIGHT - 0.3f), 0f), Quaternion.identity);
+            clone = Instantiate(enemy, new Vector3(-(WIDTH - 0.25f), Random.Range(-(HEIGHT - 0.3f), HEIGHT - 0.3f), 0f), Quaternion.identity);
             clone.AddComponent<Destroyer>();
             StartCoroutine(flickerSpawn(clone)); 
             clone.GetComponent<ProjectileScript>().enabled = false;            
@@ -269,7 +269,7 @@ public class Spawning : MonoBehaviour
                 clone.transform.rotation = Quaternion.Euler(0.0f, 0.0f, a); //Targetting bird2 with angle a found from bird2
             }
         } else if (!bs2.dead){
-            clone = Instantiate(enemy, new Vector3(WIDTH + 0.25f, Random.Range(-(HEIGHT - 0.3f), HEIGHT - 0.3f), 0f), Quaternion.identity);
+            clone = Instantiate(enemy, new Vector3(WIDTH - 0.25f, Random.Range(-(HEIGHT - 0.3f), HEIGHT - 0.3f), 0f), Quaternion.identity);
             clone.GetComponent<SpriteRenderer>().flipX = true; //Flipping the flickering sprite to face left
             clone.AddComponent<Destroyer>();
             StartCoroutine(flickerSpawn(clone));
