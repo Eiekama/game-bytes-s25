@@ -49,6 +49,8 @@ namespace Minigames.FlyingHazard.Scripts
             livesDisplay.text = "" + lives;
             StartCoroutine(StopSpawnCamping());
             music = musicbox.GetComponent<AudioSource>();
+            StartCoroutine(musicStart());
+            
         }
 
         private void Update()
@@ -392,7 +394,7 @@ namespace Minigames.FlyingHazard.Scripts
             for (int i = 0; i < 5; i++)
             {
                 yield return new WaitForSeconds(0.2f);
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, .6f, 0f, 1f);
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0.6f, 0.4f, 1f);
                 yield return new WaitForSeconds(0.2f);
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             }
@@ -421,7 +423,7 @@ namespace Minigames.FlyingHazard.Scripts
             for (int i = 0; i < 5; i++)
             {
                 yield return new WaitForSeconds(0.2f);
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, .6f, 0f, 1f);
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0.6f, 0.4f, 1f);
                 yield return new WaitForSeconds(0.2f);
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             }
@@ -447,6 +449,13 @@ namespace Minigames.FlyingHazard.Scripts
         IEnumerator fallSound(){
             yield return new WaitForSeconds(1);
             bs.jumps_Powerups[9].Play();
+        }
+
+        IEnumerator musicStart(){
+            music.Play();
+            music.Pause();
+            yield return new WaitForSeconds(3);
+            music.UnPause();
         }
     }
 }
