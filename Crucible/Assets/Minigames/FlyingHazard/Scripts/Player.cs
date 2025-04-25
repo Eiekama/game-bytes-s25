@@ -199,7 +199,7 @@ namespace Minigames.FlyingHazard.Scripts
             music[0].Pause();
             powerupSecondsLeft = powerupDuration;
             bs.jumps_Powerups[11].Play();
-            StartCoroutine(flicker());      
+            // StartCoroutine(flicker());
             yield return new WaitForSeconds(powerupDuration);
             bs.jumps_Powerups[11].Stop();
             music[0].UnPause();
