@@ -27,7 +27,7 @@ public class BirdScript : MonoBehaviour
     
     public Direction direction;
     // How quickly the bird changes direction (left/right) (higher -> faster)
-    public const float TRACTION = 0.25f;
+    public const float TRACTION = 0.75f;
     private SpriteRenderer sprite;
 
     Animator birdAnim;
