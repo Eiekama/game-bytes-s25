@@ -421,7 +421,7 @@ namespace Minigames.FlyingHazard.Scripts
             for (int i = 0; i < 5; i++)
             {
                 yield return new WaitForSeconds(0.2f);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, .6f, 0f, 0f);
                 yield return new WaitForSeconds(0.2f);
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             }
