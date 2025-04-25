@@ -58,7 +58,7 @@ public class Spawning : MonoBehaviour
     public const float HEIGHT = 5f;
 
     // Time before enemies start spawning:
-    public float warmupTime = 5f;
+    public float warmupTime = 11f;
 
     [SerializeField] private int powerupMax;
     // NOTE: SWAP WARP MUST BE LAST (See RandomPowerup.)
