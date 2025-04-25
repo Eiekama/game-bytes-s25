@@ -35,6 +35,8 @@ namespace Minigames.FlyingHazard.Scripts
         // Seconds the bird is invincible after using a OneUp. 
         private const float invincibilityTime = 2f;
         [SerializeField] bool canDie;
+
+        private static bool screenFlipping;
         
         public GameObject musicbox;
 
@@ -50,7 +52,7 @@ namespace Minigames.FlyingHazard.Scripts
             StartCoroutine(StopSpawnCamping());
             music = musicbox.GetComponent<AudioSource>();
             StartCoroutine(musicStart());
-            
+            screenFlipping = false;
         }
 
         private void Update()
@@ -148,7 +150,8 @@ namespace Minigames.FlyingHazard.Scripts
             }
 
             if (canDie && collider.gameObject.CompareTag("Danger")
-             && currentPowerup != PowerupType.EnergyShield)
+             && currentPowerup != PowerupType.EnergyShield
+             && !screenFlipping)
             {
                 Die();
             }
@@ -249,8 +252,8 @@ namespace Minigames.FlyingHazard.Scripts
             }
             Vector3 start = new Vector3(0, 0, 0);
             Vector3 end = new Vector3(0, 0, 180);
-
-            // Debug.Log("(Past the guard clause)");
+            
+            screenFlipping = true;
 
             for (float time = 0; time < screenRotationTime; time += Time.deltaTime)
             {
@@ -271,6 +274,10 @@ namespace Minigames.FlyingHazard.Scripts
                 // Directly set it to <upside down>, in case the anim overshot it.
                 _mainCamera.transform.rotation = new Quaternion(0, 0, 0, 1);
             }
+            
+            yield return new WaitForSeconds(0.05f);
+
+            screenFlipping = false;
         }
 
         IEnumerator MushroomFlip()
@@ -394,7 +401,7 @@ namespace Minigames.FlyingHazard.Scripts
             for (int i = 0; i < 5; i++)
             {
                 yield return new WaitForSeconds(0.2f);
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0.6f, 0.4f, 1f);
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, .2f, 0f, 1f);
                 yield return new WaitForSeconds(0.2f);
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             }
@@ -423,7 +430,7 @@ namespace Minigames.FlyingHazard.Scripts
             for (int i = 0; i < 5; i++)
             {
                 yield return new WaitForSeconds(0.2f);
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0.6f, 0.4f, 1f);
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, .2f, 0f, 1f);
                 yield return new WaitForSeconds(0.2f);
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             }
