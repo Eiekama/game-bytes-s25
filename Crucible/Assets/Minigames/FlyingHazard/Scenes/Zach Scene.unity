@@ -3029,8 +3029,8 @@ MonoBehaviour:
   bulletSeed: {fileID: 81325082}
   vineSeed: {fileID: 1552361981}
   balloonPlant: {fileID: 1100103111}
-  inter1: 3
-  inter2: 3
+  inter1: 5
+  inter2: 5
   muncherint: 6
   breadint: 2
   powerint: 5
