@@ -274,7 +274,7 @@ namespace Minigames.FlyingHazard.Scripts
                 _mainCamera.transform.rotation = new Quaternion(0, 0, 0, 1);
             }
             
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
 
             screenFlipping = false;
         }
