@@ -388,14 +388,22 @@ namespace Minigames.FlyingHazard.Scripts
             }    
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
             gameObject.GetComponent<Rigidbody2D>().velocity = new UnityEngine.Vector2(0.0f, 0.0f);
+            if (bs.player == 1){
             for (int i = 0; i < 5; i++)
-            //I tried to make this a separate method called flickering in spawning, but it didn't work so i
-            //just put the whole for loop in here
             {
                 yield return new WaitForSeconds(0.2f);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.black;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 yield return new WaitForSeconds(0.2f);
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            } else {
+                for (int i = 0; i < 5; i++)
+            {
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }
             }
             canDie = true;
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
@@ -409,12 +417,22 @@ namespace Minigames.FlyingHazard.Scripts
             
             // I-Frames
             StartCoroutine(Invincible(invincibilityTime));
+            if (bs.player == 1){
             for (int i = 0; i < 5; i++)
             {
                 yield return new WaitForSeconds(0.2f);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.black;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 yield return new WaitForSeconds(0.2f);
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            } else {
+                for (int i = 0; i < 5; i++)
+            {
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }
             }
             
             // After i-frames end:
