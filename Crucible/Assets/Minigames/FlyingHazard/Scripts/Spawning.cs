@@ -98,7 +98,8 @@ public class Spawning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (powerupCount < powerupMax
+        if (MinigameController.Instance.GetElapsedTime() >= warmupTime - 2.5f
+            && powerupCount < powerupMax
             && enabled
             && t1.getPowerup() == Minigames.FlyingHazard.Scripts.PowerupType.None
             && t2.getPowerup() == Minigames.FlyingHazard.Scripts.PowerupType.None)
