@@ -40,8 +40,12 @@ namespace Minigames.FlyingHazard.Scripts
         
         public GameObject musicbox;
 
-        AudioSource music;
+        AudioSource[] music;
         public int Score = 0;
+
+        [SerializeField] private GameObject trailB;
+
+        [SerializeField] private GameObject trailW;
 
         private void Start()
         {
@@ -50,7 +54,7 @@ namespace Minigames.FlyingHazard.Scripts
             _collider = GetComponent<CircleCollider2D>();
             livesDisplay.text = "" + lives;
             StartCoroutine(StopSpawnCamping());
-            music = musicbox.GetComponent<AudioSource>();
+            music = musicbox.GetComponents<AudioSource>();
             StartCoroutine(musicStart());
             screenFlipping = false;
         }
@@ -170,8 +174,8 @@ namespace Minigames.FlyingHazard.Scripts
             bs.DeathEffects();
             bs.jumps_Powerups[10].Play();
             StartCoroutine(fallSound());
-            if (music.pitch != 1 && currentPowerup == PowerupType.Stopwatch){
-                music.pitch = 1;
+            if (music[0].pitch != 1 && (currentPowerup == PowerupType.Stopwatch || currentPowerup == PowerupType.MushroomFlip)){
+                music[0].pitch = 1;
             }
             
             //This first canDie check is to make sure lives get updated before the other functions
@@ -190,8 +194,15 @@ namespace Minigames.FlyingHazard.Scripts
         IEnumerator EnergyShield()
         {
             // Waits until Invincible is finished.
+
+            StartCoroutine(trail());
+            music[0].Pause();
             powerupSecondsLeft = powerupDuration;
+            bs.jumps_Powerups[11].Play();
+            StartCoroutine(flicker());      
             yield return new WaitForSeconds(powerupDuration);
+            bs.jumps_Powerups[11].Stop();
+            music[0].UnPause();
         }
 
         IEnumerator Invincible(float time)
@@ -206,11 +217,13 @@ namespace Minigames.FlyingHazard.Scripts
 
         void RiceMagnet()
         {
+            StartCoroutine(flicker());
             powerupSecondsLeft = powerupDuration;
         }
 
         void LimeBoost()
         {
+            StartCoroutine(flicker());
             powerupSecondsLeft = powerupDuration;
         }
 
@@ -219,7 +232,7 @@ namespace Minigames.FlyingHazard.Scripts
             // TODO: Make this not have a visible reduction in framerate? (i.e. just slow things down manually pbly.)
             float slowAmt = 0.5f;
             
-            music.pitch = 0.5f;
+            music[0].pitch = 0.5f;
 
             Time.timeScale = slowAmt;
             
@@ -228,7 +241,7 @@ namespace Minigames.FlyingHazard.Scripts
             
             yield return new WaitForSecondsRealtime(powerupDuration);
             
-            music.pitch = 1;
+            music[0].pitch = 1;
 
             Time.timeScale = 1;
         }
@@ -282,10 +295,13 @@ namespace Minigames.FlyingHazard.Scripts
 
         IEnumerator MushroomFlip()
         {
+            StartCoroutine(flicker());
             Debug.Log("Mushroom Flip");
             yield return FlipScreen(1);
             Debug.Log("Mushroom Flip 2");
             
+            music[0].pitch = 0.85f;
+
             powerupSecondsLeft = powerupDuration + screenRotationTime;
             int prevLives = lives;
         
@@ -296,6 +312,7 @@ namespace Minigames.FlyingHazard.Scripts
                 yield break;
             }
             
+            music[0].pitch = 1f;
             // Rotates it back the right way
             StartCoroutine(FlipScreen(-1));
         }
@@ -459,10 +476,52 @@ namespace Minigames.FlyingHazard.Scripts
         }
 
         IEnumerator musicStart(){
-            music.Play();
-            music.Pause();
-            yield return new WaitForSeconds(3);
-            music.UnPause();
+            music[0].Play();
+            music[0].Pause();
+            yield return new WaitForSeconds(5);
+            music[0].UnPause();
+        }
+
+        IEnumerator trail(){
+            GameObject clone;
+            for (int i = 0; i < powerupDuration*10-2; i++){
+                if (i % 2 == 0){
+                    clone = Instantiate(trailB, this.transform.position, Quaternion.identity);
+                } else {
+                    clone = Instantiate(trailW, this.transform.position, Quaternion.identity);
+                }
+                if (bs.direction == Direction.Left)
+                    clone.GetComponent<SpriteRenderer>().flipX = true;
+                Destroy(clone, 0.2f);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+
+        IEnumerator flicker(){
+            yield return new WaitForSeconds(powerupDuration-2);
+            if (currentPowerup != PowerupType.None){
+            if (bs.player == 1){
+            for (int i = 0; i < 5; i++)
+            {
+                if(bs.dead)
+                    break;
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, .2f, 0f, 1f);
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            } else {
+                for (int i = 0; i < 5; i++)
+            {
+                if (bs.dead)
+                    break;
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            }
+            }
         }
     }
 }
