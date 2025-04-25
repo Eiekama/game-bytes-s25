@@ -312,7 +312,7 @@ namespace Minigames.FlyingHazard.Scripts
             
             // TODO: Do an animation of them swapping positions?
             
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(0.75f);
 
             Time.timeScale = 1;
             
