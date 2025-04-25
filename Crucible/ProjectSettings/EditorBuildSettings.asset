@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Core/Scenes/MainMenu.unity
     guid: 542a8d19925e2d941bc4e2937004b8bb
   - enabled: 1
-    path: Assets/Core/Scenes/MinigameLauncher.unity
+    path: 
     guid: 44720dd75ae23bb448cfcb51179a6382
   - enabled: 1
     path: Assets/Minigames/MeteorMasher/Scene_MeteorMasher.unity
@@ -74,4 +74,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Minigames/Tempo/Scenes/Settings.unity
     guid: 8b16c49fe6a0537419401bb25070dc52
+  - enabled: 1
+    path: Assets/Minigames/FlyingHazard/Scenes/Zach Scene.unity
+    guid: 3a73a22d85c4b1a4fb6e5d523cfdf883
+  - enabled: 1
+    path: Assets/Core/Scenes/MinigameLauncher.unity
+    guid: d002ac17a29ad49d2b1f60b41fdc4aa2
   m_configObjects: {}

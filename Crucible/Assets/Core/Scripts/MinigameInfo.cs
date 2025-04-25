@@ -35,13 +35,21 @@ public class MinigameInfo : ScriptableObject
     public string P2_Objective;
 
     [Header("Controls")]
-    public string P1_JoystickDescription;
-    public string P1_Button1Description;
-    public string P1_Button2Description;
+    public string P1_JoystickDescription = "None";
+    public string P1_Button1Description = "None";
+    public string P1_Button2Description = "None";
+    public string P1_Button3Description = "None";
+    public string P1_Button4Description = "None";
+    public string P1_Button5Description = "None";
+    public string P1_Button6Description = "None";
 
-    public string P2_JoystickDescription;
-    public string P2_Button1Description;
-    public string P2_Button2Description;
+    public string P2_JoystickDescription = "None";
+    public string P2_Button1Description = "None";
+    public string P2_Button2Description = "None";
+    public string P2_Button3Description = "None";
+    public string P2_Button4Description = "None";
+    public string P2_Button5Description = "None";
+    public string P2_Button6Description = "None";
 
     [Header("Gameplay")]
     public SceneReference GameScene;
